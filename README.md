@@ -141,11 +141,10 @@ L'application sera disponible sur **http://localhost:3000**
 
 | Français | العربية |
 |---|---|
-| Matières premières | مواد أولية |
-| Verdure | الأعلاف الخضراء |
-| Sous-produits | مخلفات |
-| Compléments | مكملات |
-| Minéraux | معادن |
+| Aliments grossiers | أعلاف خشنة |
+| Aliments concentrés | أعلاف مركبة |
+| Sous-produits | منتجات ثانوية |
+| Compléments | مكملات غذائية |
 
 ---
 
