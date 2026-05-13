@@ -96,50 +96,50 @@ export default async function Dashboard() {
           <div className="space-y-6">
 
             {/* Welcome banner */}
-            <div className="relative overflow-hidden rounded-2xl p-6 sm:p-8 shadow-xl bg-gradient-to-br from-emerald-700 via-green-600 to-teal-500">
+            <div className="relative overflow-hidden rounded-2xl p-4 shadow-xl bg-gradient-to-br from-emerald-700 via-green-600 to-teal-500">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15),_transparent_65%)]" />
               <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-white/5 rounded-full blur-2xl" />
-              <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8">
+              <div className="relative grid grid-cols-1 items-center gap-4 lg:grid-cols-[180px_minmax(0,1fr)_104px] xl:grid-cols-[220px_minmax(0,1fr)_116px]">
                 {/* Left: Carte Biorest - larger and more visible */}
-                <div className="w-72 md:w-80 lg:w-96 h-72 md:h-80 lg:h-96 overflow-hidden flex-shrink-0 mx-auto rounded-2xl border border-white/40 bg-white/5">
+                <div className="mx-auto flex h-40 w-40 items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-white/5 sm:h-44 sm:w-44 lg:h-44 lg:w-full xl:h-52">
                   <Image
                     src="/LOGOS/Carte Biorest .png"
                     alt="Carte Biorest"
-                    width={380}
-                    height={480}
+                    width={260}
+                    height={320}
                     className="w-full h-full object-contain"
                     priority
                   />
                 </div>
 
                 {/* Center: Bienvenue text */}
-                <div className="text-center">
-                  <p className="text-4xl sm:text-5xl lg:text-6xl font-semibold uppercase tracking-widest mb-4 flex items-center justify-center lg:justify-start gap-2 text-emerald-100">
-                    <span className="text-5xl sm:text-6xl lg:text-7xl">👋</span> Bienvenue
+                <div className="min-w-0 text-center">
+                  <p className="mb-2 flex items-center justify-center gap-2 text-2xl font-semibold uppercase tracking-widest text-emerald-100 sm:text-3xl xl:text-4xl">
+                    <span className="text-3xl sm:text-4xl xl:text-5xl">👋</span> Bienvenue
                   </p>
-                  <p className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white drop-shadow mb-4">
+                  <p className="mx-auto max-w-2xl text-balance text-xl font-extrabold leading-tight text-white drop-shadow sm:text-2xl xl:text-3xl">
                     Votre assistant nutritionnel pour l&apos;élevage biologique
                   </p>
                 </div>
                 
                 {/* Right: Bio-Aliment logo + Biorest logo below */}
-                <div className="flex flex-col items-center gap-3 flex-shrink-0">
-                  <div className="w-40 h-40 rounded-2xl overflow-hidden border border-white/40 bg-white/5">
+                <div className="mx-auto flex flex-row items-center justify-center gap-2 lg:flex-col">
+                  <div className="h-20 w-20 overflow-hidden rounded-2xl border border-white/40 bg-white/5 lg:h-24 lg:w-24">
                     <Image
                       src="/logo/Logo%20fond%20Noir.png"
                       alt="Logo Bio-Aliment"
-                      width={200}
-                      height={200}
+                      width={120}
+                      height={120}
                       className="w-full h-full object-contain"
                       priority
                     />
                   </div>
-                  <div className="w-32 h-14 rounded-xl overflow-hidden border border-white/40 bg-white/5">
+                  <div className="h-9 w-24 overflow-hidden rounded-xl border border-white/40 bg-white/5 lg:h-10">
                     <Image
                       src="/LOGOS/LOGO BIOREST.jpg"
                       alt="Logo Biorest"
-                      width={150}
-                      height={60}
+                      width={120}
+                      height={50}
                       className="w-full h-full object-contain"
                       priority
                     />
@@ -148,38 +148,38 @@ export default async function Dashboard() {
               </div>
               
               {/* Horizontal navigation menu inside banner */}
-              <div className="relative mt-6 flex items-center justify-center gap-2 bg-white/95 rounded-xl p-4 overflow-x-auto">
-                <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+              <div className="relative mt-4 flex flex-wrap items-center justify-center gap-1.5 rounded-xl bg-white/95 p-2">
+                <Link href="/dashboard" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>🏠</span>
                   <span>Accueil</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/aliments" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/aliments" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>🌾</span>
                   <span>Aliments</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/formules" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/formules" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>📋</span>
                   <span>Formules</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/animals" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/animals" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>🐄</span>
                   <span>Animaux</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/rationing" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/rationing" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>📊</span>
                   <span>Rationnement</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/tips" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/tips" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>💡</span>
                   <span>Conseils</span>
                 </Link>
-                <span className="text-lg text-gray-300">/</span>
-                <Link href="/settings" className="flex items-center gap-2 px-4 py-2 rounded-lg text-base sm:text-lg font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                <span className="text-sm text-gray-300">/</span>
+                <Link href="/settings" className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-bold text-emerald-700 hover:bg-emerald-50 transition-colors whitespace-nowrap">
                   <span>⚙️</span>
                   <span>Paramètres</span>
                 </Link>
