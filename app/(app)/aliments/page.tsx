@@ -2,6 +2,21 @@ import { prisma } from '@/lib/prisma'
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import AlimentsClient from '@/components/aliments/AlimentsClient'
 
+const alimentListSelect = {
+  id: true,
+  name_fr: true,
+  name_ar: true,
+  category_fr: true,
+  category_ar: true,
+  ms_percentage: true,
+  ufl_per_kg_ms: true,
+  pdie_per_kg_ms: true,
+  pdin_per_kg_ms: true,
+  ndf_per_kg_ms: true,
+  userId: true,
+  isPublic: true,
+} as const
+
 export default async function AlimentsPage({
   searchParams,
 }: {
@@ -10,7 +25,9 @@ export default async function AlimentsPage({
   const userId = DEFAULT_USER_ID
   const { action } = await searchParams
 
-  // Fetch all aliments (public and user's custom ones)
+  // Fetch only the stable fields required by the aliments list. This keeps the
+  // page compatible with production databases that may not have optional
+  // composition columns migrated yet.
   const aliments = await prisma.aliment.findMany({
     where: {
       OR: [
@@ -18,19 +35,36 @@ export default async function AlimentsPage({
         { userId: userId }
       ]
     },
-    orderBy: { name_fr: 'asc' }
+    orderBy: { name_fr: 'asc' },
+    select: alimentListSelect,
   })
 
-  // Get stock information for each aliment
-  const stocks = await prisma.stock.findMany({
-    where: { userId },
-    include: {
-      aliment: true
-    }
-  })
+  type StockSummary = {
+    alimentId: string
+    currentStock: number
+    minStock: number
+    maxStock: number
+  }
+
+  // Stock tables are optional for this screen. If a production database is
+  // missing stock migrations, the aliments page should still render.
+  let stocks: StockSummary[] = []
+  try {
+    stocks = await prisma.stock.findMany({
+      where: { userId },
+      select: {
+        alimentId: true,
+        currentStock: true,
+        minStock: true,
+        maxStock: true,
+      },
+    })
+  } catch (error) {
+    console.error('Unable to load stocks for aliments page:', error)
+  }
 
   // Group aliments by category and add stock information
-  type AlimentWithStock = typeof aliments[0] & { stock: typeof stocks[0] | null }
+  type AlimentWithStock = typeof aliments[0] & { stock: Omit<StockSummary, 'alimentId'> | null }
   const normalizeCategory = (category: string) =>
     category === 'Concentré' ? 'Matières premières' : category
   
@@ -45,7 +79,13 @@ export default async function AlimentsPage({
     
     acc[category].push({
       ...aliment,
-      stock: stock || null
+      stock: stock
+        ? {
+            currentStock: stock.currentStock,
+            minStock: stock.minStock,
+            maxStock: stock.maxStock,
+          }
+        : null
     } as AlimentWithStock)
     return acc
   }, {} as Record<string, AlimentWithStock[]>)

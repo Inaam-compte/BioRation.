@@ -4,6 +4,21 @@ import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
+const alimentListSelect = {
+  id: true,
+  name_fr: true,
+  name_ar: true,
+  category_fr: true,
+  category_ar: true,
+  ms_percentage: true,
+  ufl_per_kg_ms: true,
+  pdie_per_kg_ms: true,
+  pdin_per_kg_ms: true,
+  ndf_per_kg_ms: true,
+  userId: true,
+  isPublic: true,
+} as const
+
 // Validation schema for aliment creation/update
 const alimentSchema = z.object({
   name_fr: z.string().min(1, 'French name is required'),
@@ -80,7 +95,8 @@ export async function GET(request: NextRequest) {
 
     const aliments = await prisma.aliment.findMany({
       where,
-      orderBy: { name_fr: 'asc' }
+      orderBy: { name_fr: 'asc' },
+      select: alimentListSelect,
     })
 
     return NextResponse.json(aliments)
