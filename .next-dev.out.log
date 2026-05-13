@@ -1,0 +1,30 @@
+
+> inaam@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 4.8s
+ ✓ Compiled /middleware in 159ms (72 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 3.4s (488 modules)
+ GET / 307 in 3813ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 1674ms (617 modules)
+ GET /dashboard 200 in 5045ms
+ ✓ Compiled /_not-found in 349ms (606 modules)
+ GET / 404 in 596ms
+ GET / 307 in 91ms
+ GET /dashboard 200 in 528ms
+ GET /LOGOS/logo%20biorest.png 404 in 154ms
+ GET /LOGOS/logo%20biorest.png 404 in 65ms
+ GET /LOGOS/Carte%20biorest.png 404 in 47ms
+ GET /LOGOS/Carte biorest.png 404 in 20ms
+ ○ Compiling /aliments ...
+ ✓ Compiled /aliments in 1285ms (765 modules)
+ ✓ Compiled in 1333ms (770 modules)
+ GET /aliments 200 in 686ms
+ ○ Compiling / ...

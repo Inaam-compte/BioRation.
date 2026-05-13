@@ -1,0 +1,395 @@
+
+> inaam@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3001
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 6.7s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 6.7s (72 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 21.4s (488 modules)
+ ✓ Compiled in 1022ms (234 modules)
+ GET / 307 in 1243ms
+ GET / 307 in 23498ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 4.3s (603 modules)
+ GET /dashboard 200 in 4745ms
+ GET /dashboard 200 in 3151ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 755ms (606 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1112ms
+ GET /LOGOS/logo%20biorest.png 404 in 723ms
+ GET /LOGOS/Carte%20biorest.png 404 in 723ms
+ GET /LOGOS/Carte biorest.png 404 in 38ms
+ ○ Compiling /aliments ...
+ ✓ Compiled /aliments in 4.5s (765 modules)
+ ✓ Compiled in 20.9s (368 modules)
+ ✓ Compiled in 835ms (368 modules)
+ ✓ Compiled in 433ms (368 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 638ms (757 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1501ms (983 modules)
+ GET /_next/static/webpack/26869b79c64dacd8.webpack.hot-update.json 404 in 3411ms
+ ✓ Compiled in 2.4s (994 modules)
+ ✓ Compiled in 1603ms (994 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1783ms (448 modules)
+ GET / 307 in 2165ms
+ GET /dashboard 200 in 2644ms
+ GET /aliments 200 in 717ms
+ GET / 307 in 83ms
+ GET /dashboard 200 in 523ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1159ms (1005 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1458ms
+ GET /LOGOS/Carte biorest.png 404 in 1069ms
+ GET /LOGOS/logo%20biorest.png 404 in 1441ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1410ms
+ ✓ Compiled in 4.1s (554 modules)
+ ✓ Compiled in 429ms (554 modules)
+ ✓ Compiled in 2.1s (994 modules)
+ GET /aliments 200 in 2576ms
+ GET /aliments 200 in 453ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1327ms (997 modules)
+ GET /LOGOS/Carte biorest.png 404 in 1072ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1609ms
+ GET /LOGOS/logo%20biorest.png 404 in 1610ms
+ ✓ Compiled in 2.8s (994 modules)
+ GET /aliments 200 in 387ms
+ GET /aliments 200 in 605ms
+ ✓ Compiled /_not-found in 494ms (983 modules)
+ GET /LOGOS/Carte biorest.png 404 in 631ms
+ GET /LOGOS/logo%20biorest.png 404 in 712ms
+ GET /LOGOS/Carte%20biorest.png 404 in 719ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 781ms (473 modules)
+ GET /favicon.ico 200 in 945ms
+ ✓ Compiled in 1010ms (996 modules)
+ GET /aliments 200 in 587ms
+ GET /aliments 200 in 443ms
+ GET /aliments 200 in 589ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 662ms (985 modules)
+ GET /LOGOS/Carte biorest.png 404 in 838ms
+ GET /LOGOS/logo%20biorest.png 404 in 892ms
+ GET /LOGOS/Carte%20biorest.png 404 in 872ms
+ ✓ Compiled /favicon.ico in 172ms (474 modules)
+ GET /favicon.ico 200 in 296ms
+ ○ Compiling /formules/ruminants ...
+ ✓ Compiled /formules/ruminants in 921ms (1024 modules)
+ ○ Compiling /formules/mono-gastriques ...
+ ✓ Compiled /formules/mono-gastriques in 804ms (1073 modules)
+ ✓ Compiled in 3.5s (1007 modules)
+ ✓ Compiled /formules/ruminants in 180ms (452 modules)
+ GET /formules/mono-gastriques 200 in 870ms
+ GET /formules/ruminants 200 in 874ms
+ ✓ Compiled / in 319ms (460 modules)
+ GET / 307 in 609ms
+ GET /formules/mono-gastriques 200 in 72ms
+ GET /dashboard 200 in 2008ms
+ GET /formules/mono-gastriques 200 in 49ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 703ms (1009 modules)
+ GET /LOGOS/Carte biorest.png 404 in 860ms
+ GET /LOGOS/logo%20biorest.png 404 in 935ms
+ GET /LOGOS/Carte%20biorest.png 404 in 932ms
+ ✓ Compiled /favicon.ico in 323ms (493 modules)
+ GET /favicon.ico 200 in 517ms
+ ✓ Compiled in 1162ms (1007 modules)
+ GET /formules/mono-gastriques 200 in 317ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1093ms (996 modules)
+ GET /LOGOS/Carte biorest.png 404 in 1256ms
+ GET /LOGOS/logo%20biorest.png 404 in 1358ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1364ms
+ ✓ Compiled /favicon.ico in 215ms (480 modules)
+ GET /favicon.ico 200 in 395ms
+ GET /LOGOS/logo%20biorest.png 404 in 84ms
+ ✓ Compiled in 1372ms (1007 modules)
+ ✓ Compiled / in 331ms (455 modules)
+ GET / 307 in 630ms
+ GET /dashboard 200 in 476ms
+ GET /dashboard 200 in 825ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 703ms (996 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1011ms
+ GET /LOGOS/logo%20biorest.png 404 in 993ms
+ GET /LOGOS/Carte%20biorest.png 404 in 973ms
+ ✓ Compiled /favicon.ico in 204ms (480 modules)
+ GET /favicon.ico 200 in 328ms
+ ○ Compiling /aliments/limits ...
+ ✓ Compiled /aliments/limits in 1160ms (1038 modules)
+ ○ Compiling /supply ...
+ ✓ Compiled /supply in 1445ms (1119 modules)
+ GET /formules 404 in 109ms
+ GET /formules 404 in 65ms
+ GET /favicon.ico 200 in 24ms
+ GET /supply 200 in 716ms
+ GET /LOGOS/Carte%20biorest.png 404 in 36ms
+ GET /LOGOS/logo%20biorest.png 404 in 37ms
+ ✓ Compiled /formules/ruminants in 217ms (540 modules)
+ ✓ Compiled in 1165ms (1092 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 579ms (504 modules)
+ GET / 307 in 1394ms
+ GET /formules/mono-gastriques 200 in 1397ms
+ GET /dashboard 200 in 2574ms
+ GET /formules/mono-gastriques 200 in 69ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1118ms (1095 modules)
+ GET /LOGOS/Carte%20biorest.png 404 in 1448ms
+ GET /LOGOS/logo%20biorest.png 404 in 1469ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 521ms (529 modules)
+ GET /favicon.ico 200 in 707ms
+ ○ Compiling /rationing ...
+ ✓ Compiled /rationing in 2.7s (1293 modules)
+ ○ Compiling /rationing/choix-espece ...
+ ✓ Compiled /rationing/choix-espece in 864ms (1304 modules)
+ ○ Compiling /animals ...
+ ✓ Compiled /animals in 1148ms (1301 modules)
+ ✓ Compiled in 6.7s (1186 modules)
+ ✓ Compiled / in 468ms (507 modules)
+ GET / 307 in 1069ms
+ GET /animals 200 in 1334ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 688ms (521 modules)
+ GET /dashboard 200 in 2174ms
+ ✓ Compiled in 2.9s (1186 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 511ms (507 modules)
+ GET / 307 in 1337ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 544ms (521 modules)
+ GET /animals 200 in 1951ms
+ GET /dashboard 200 in 1279ms
+ GET /animals 200 in 357ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 864ms (1197 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1022ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1025ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1019ms (554 modules)
+ GET /favicon.ico 200 in 1184ms
+ ✓ Compiled in 1466ms (1186 modules)
+ ✓ Compiled / in 435ms (507 modules)
+ GET / 307 in 1394ms
+ GET /rationing/choix-espece 200 in 1393ms
+ ✓ Compiled /dashboard in 371ms (521 modules)
+ GET /dashboard 200 in 1982ms
+ GET /rationing/choix-espece 200 in 129ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 843ms (1197 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1073ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1076ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 644ms (554 modules)
+ GET /favicon.ico 200 in 853ms
+ ○ Compiling /tips ...
+ ✓ Compiled /tips in 1045ms (1219 modules)
+ ✓ Compiled /dashboard in 253ms (551 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 114ms
+ ○ Compiling /reports ...
+ ✓ Compiled /reports in 1097ms (1194 modules)
+ ○ Compiling /settings ...
+ ✓ Compiled /settings in 1015ms (1206 modules)
+ ✓ Compiled /profile in 470ms (1203 modules)
+ ○ Compiling /aliments ...
+ ✓ Compiled /aliments in 1054ms (591 modules)
+ ○ Compiling /supply ...
+ ✓ Compiled /supply in 515ms (609 modules)
+ ✓ Compiled in 1529ms (1216 modules)
+ ✓ Compiled in 1329ms (1216 modules)
+ ✓ Compiled / in 397ms (519 modules)
+ GET / 307 in 1140ms
+ GET /aliments 200 in 1580ms
+ GET /dashboard 200 in 1380ms
+ ○ Compiling /animals ...
+ ✓ Compiled /animals in 1195ms (601 modules)
+ ✓ Compiled in 1536ms (1284 modules)
+ ✓ Compiled / in 270ms (587 modules)
+ GET / 307 in 849ms
+ GET /animals 200 in 1163ms
+ ✓ Compiled /dashboard in 461ms (601 modules)
+ GET /dashboard 200 in 1155ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 721ms (1295 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 877ms
+ GET /LOGOS/logo%20biorest.png 404 in 63ms
+ ✓ Compiled in 1172ms (1289 modules)
+ ✓ Compiled / in 225ms (592 modules)
+ GET / 307 in 855ms
+ GET /dashboard 200 in 1272ms
+ GET /dashboard 200 in 1842ms
+ ✓ Compiled in 895ms (1289 modules)
+ ✓ Compiled in 988ms (1289 modules)
+ ✓ Compiled / in 234ms (592 modules)
+ GET / 307 in 555ms
+ ○ Compiling /_error ...
+ GET /dashboard 200 in 463ms
+ ✓ Compiled /_error in 734ms (1285 modules)
+ GET /dashboard 500 in 1645ms
+ GET /dashboard 200 in 387ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 591ms (1288 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 693ms
+ GET /LOGOS/logo%20biorest.png 404 in 585ms
+ GET /LOGOS/Carte%20biorest.png 404 in 571ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 569ms (626 modules)
+ GET /favicon.ico 200 in 716ms
+ GET /dashboard 200 in 497ms
+ GET /aliments 200 in 1092ms
+ GET /LOGOS/logo%20biorest.png 404 in 41ms
+ GET /LOGOS/Carte%20biorest.png 404 in 39ms
+ ✓ Compiled in 732ms (705 modules)
+ ✓ Compiled in 333ms (705 modules)
+ GET / 307 in 231ms
+ GET /dashboard 200 in 2631ms
+ GET /dashboard 200 in 2392ms
+ GET /dashboard 200 in 381ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1343ms (1300 modules)
+ GET /LOGOS/logo%20biorest.png 404 in 1867ms
+ GET /LOGOS/logo%20biorest.png 404 in 1800ms
+ GET /LOGOS/Carte%20biorest.png 404 in 1792ms
+ ✓ Compiled /favicon.ico in 326ms (625 modules)
+ GET /favicon.ico 200 in 491ms
+ GET /aliments 200 in 473ms
+ GET /LOGOS/logo%20biorest.png 404 in 56ms
+ GET /LOGOS/Carte%20biorest.png 404 in 51ms
+ GET /favicon.ico 200 in 11ms
+ GET / 307 in 107ms
+ GET /dashboard 200 in 599ms
+ GET /aliments 200 in 723ms
+ GET /aliments 200 in 293ms
+ GET /LOGOS/Carte%20biorest.png 404 in 50ms
+ GET /LOGOS/logo%20biorest.png 404 in 49ms
+ GET /favicon.ico 200 in 19ms
+ GET /LOGOS/logo%20biorest.png 404 in 20ms
+ GET /LOGOS/logo%20biorest.png 404 in 66ms
+ GET /LOGOS/logo%20biorest.png 404 in 56ms
+ ○ Compiling /aliments/limits ...
+ ✓ Compiled /aliments/limits in 1690ms (591 modules)
+ GET /formules 404 in 102ms
+ GET /supply 200 in 460ms
+ GET /LOGOS/logo%20biorest.png 404 in 65ms
+ GET /LOGOS/Carte%20biorest.png 404 in 65ms
+ ○ Compiling /formules/ruminants ...
+ ✓ Compiled /formules/ruminants in 592ms (585 modules)
+ ○ Compiling /formules/mono-gastriques ...
+ ✓ Compiled /formules/mono-gastriques in 725ms (590 modules)
+ ✓ Compiled /rationing in 459ms (518 modules)
+ ○ Compiling /tips ...
+ ✓ Compiled /tips in 522ms (510 modules)
+ ✓ Compiled /rationing/choix-espece in 402ms (505 modules)
+ ✓ Compiled /aliments in 234ms (571 modules)
+ ✓ Compiled in 1659ms (1269 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1156ms (573 modules)
+ GET / 307 in 1545ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 616ms (587 modules)
+ GET /dashboard 200 in 3767ms
+ GET /aliments 200 in 3713ms
+ ✓ Compiled in 2.9s (1269 modules)
+ ✓ Compiled / in 372ms (573 modules)
+ GET /aliments 200 in 916ms
+ GET / 307 in 908ms
+ ✓ Compiled /dashboard in 243ms (587 modules)
+ GET /dashboard 200 in 954ms
+ ✓ Compiled in 3.1s (1269 modules)
+ ✓ Compiled / in 448ms (573 modules)
+ GET / 307 in 801ms
+ ✓ Compiled /dashboard in 272ms (587 modules)
+ GET /dashboard 500 in 5683ms
+ GET /aliments 500 in 5094ms
+ GET /aliments 500 in 5089ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 980ms (619 modules)
+ GET /favicon.ico 200 in 1189ms
+ GET /aliments 500 in 5121ms
+ ✓ Compiled in 757ms (704 modules)
+ GET /aliments 200 in 17ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1075ms (1258 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 626ms (1260 modules)
+ GET /aliments 500 in 3212ms
+ ✓ Compiled /favicon.ico in 226ms (599 modules)
+ GET /favicon.ico 200 in 350ms
+ GET /_next/static/webpack/757fec18f7c5218e.webpack.hot-update.json 404 in 218ms
+ GET /aliments 200 in 2797ms
+ GET /LOGOS/logo%20biorest.png 404 in 34ms
+ GET /LOGOS/Carte%20biorest.png 404 in 31ms
+ GET /favicon.ico 404 in 13ms
+ ✓ Compiled in 11.5s (1271 modules)
+ ✓ Compiled in 2s (705 modules)
+ ✓ Compiled in 563ms (705 modules)
+ ✓ Compiled in 1842ms (1267 modules)
+ ✓ Compiled in 1817ms (1267 modules)
+ ✓ Compiled in 2.6s (1267 modules)
+ ✓ Compiled in 1109ms (1267 modules)
+ ✓ Compiled in 3.4s (1267 modules)
+ ✓ Compiled in 2.2s (1267 modules)
+ ✓ Compiled in 1296ms (1267 modules)
+ ✓ Compiled in 818ms (1267 modules)
+ ✓ Compiled in 968ms (1267 modules)
+ ✓ Compiled in 1267ms (1267 modules)
+ ✓ Compiled in 932ms (1267 modules)
+ ✓ Compiled in 1290ms (1267 modules)
+ ✓ Compiled in 1233ms (1267 modules)
+ ✓ Compiled in 1301ms (1267 modules)
+ ✓ Compiled in 1077ms (1267 modules)
+ ✓ Compiled in 856ms (1267 modules)
+ ✓ Compiled in 1549ms (1267 modules)
+ ✓ Compiled in 981ms (1267 modules)
+ ✓ Compiled in 1216ms (1267 modules)
+ ✓ Compiled in 1203ms (1267 modules)
+ ✓ Compiled in 1708ms (703 modules)
+ ✓ Compiled in 1545ms (703 modules)
+ ✓ Compiled in 1032ms (703 modules)
+ ✓ Compiled in 552ms (703 modules)
+ ✓ Compiled in 1848ms (703 modules)
+ ✓ Compiled in 459ms (703 modules)
+ ✓ Compiled in 589ms (703 modules)
+ ✓ Compiled in 869ms (703 modules)
+ ✓ Compiled in 799ms (703 modules)
+ ✓ Compiled in 1050ms (703 modules)
+ ✓ Compiled in 9.2s (1267 modules)
+ ✓ Compiled in 1384ms (1242 modules)
+ ✓ Compiled in 2.2s (1253 modules)
+ ✓ Compiled in 3.8s (1267 modules)
+ ✓ Compiled in 6.3s (1267 modules)
+ ✓ Compiled in 3.9s (703 modules)
+ ✓ Compiled in 7.7s (1256 modules)
+ ✓ Compiled in 4.2s (1249 modules)
+ ✓ Compiled in 7.7s (1249 modules)
+ ✓ Compiled in 1695ms (1249 modules)
+ ✓ Compiled in 1132ms (1249 modules)
+ ✓ Compiled in 6.2s (1249 modules)
+ ✓ Compiled in 14.5s (1249 modules)
+ ✓ Compiled in 15.1s (1249 modules)
+ ✓ Compiled in 6.6s (1251 modules)
+ ✓ Compiled in 9.6s (1251 modules)
+ ✓ Compiled in 12.2s (700 modules)
+ ✓ Compiled in 748ms (700 modules)
+ ✓ Compiled in 31.8s (700 modules)
+ ✓ Compiled in 1091ms (700 modules)
+ ✓ Compiled in 27.6s (1251 modules)
+ ✓ Compiled in 3.5s (700 modules)
+ ✓ Compiled in 12.9s (700 modules)
+ ✓ Compiled in 730ms (700 modules)
+ ✓ Compiled in 2.3s (1251 modules)
+ ✓ Compiled in 2.2s (1251 modules)
+ ✓ Compiled in 2.4s (1251 modules)
+ ✓ Compiled in 9.5s (1251 modules)
+ ✓ Compiled in 17.4s (1251 modules)
+ ✓ Compiled in 8.4s (1251 modules)
+ ✓ Compiled in 4.8s (1251 modules)

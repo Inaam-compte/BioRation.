@@ -1,0 +1,125 @@
+ ⨯ PrismaClientInitializationError: 
+Invalid `prisma.aliment.findMany()` invocation:
+
+
+Can't reach database server at `ep-spring-union-ad4qq8nd-pooler.c-2.us-east-1.aws.neon.tech:5432`
+
+Please make sure your database server is running at `ep-spring-union-ad4qq8nd-pooler.c-2.us-east-1.aws.neon.tech:5432`.
+    at async AlimentsPage (aliments/page.tsx:18:22)
+digest: "1638167708"
+ ⨯ PrismaClientInitializationError: 
+Invalid `prisma.aliment.findMany()` invocation:
+
+
+Can't reach database server at `ep-spring-union-ad4qq8nd-pooler.c-2.us-east-1.aws.neon.tech:5432`
+
+Please make sure your database server is running at `ep-spring-union-ad4qq8nd-pooler.c-2.us-east-1.aws.neon.tech:5432`.
+    at async AlimentsPage (aliments/page.tsx:18:22)
+digest: "1638167708"
+Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
+TypeError: Cannot read properties of null (reading 'useContext')
+    at t.useContext (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:162364)
+    at usePathname (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/navigation.js:121:34)
+    at ErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/error-boundary.js:159:50)
+    at au (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:10446)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:15122
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at ab (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:11808)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16871
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:46505)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at ab (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:11808)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16871
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:58612
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:59270
+    at aN (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:59278)
+    at Timeout._onTimeout (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:6939)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+ ⨯ TypeError: Cannot read properties of null (reading 'useContext')
+    at t.useContext (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:162364)
+    at usePathname (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/navigation.js:121:34)
+    at ErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/error-boundary.js:159:50)
+    at au (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:10446)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:15122
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at ab (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:11808)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16871
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:46505)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at ab (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:11808)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16871
+    at aw (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:16908)
+    at a_ (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:49776)
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:58612
+    at C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:59270
+    at aN (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:59278)
+    at Timeout._onTimeout (C:\Users\hp\Desktop\biorotation\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:6939)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7) {
+  page: '/aliments'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⨯ The requested resource isn't a valid image for /LOGOS/logo%20biorest.png received null
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\0.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⨯ The requested resource isn't a valid image for /LOGOS/logo%20biorest.png received null
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\0.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\client-development\8.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\client-development\8.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz_' -> 'C:\Users\hp\Desktop\biorotation\.next\cache\webpack\server-development\2.pack.gz'
+ ⨯ The requested resource isn't a valid image for /LOGOS/logo%20biorest.png received null
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ The requested resource isn't a valid image for /LOGOS/logo%20biorest.png received null
