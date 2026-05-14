@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { FormulaSection, type FormulaTableData } from './FormulaTables'
 
-type MonogastriqueKey = 'poulet' | 'lapins'
+type MonogastriqueKey = 'poulet' | 'pondeuses' | 'lapins'
 
 const demarrageNutrition: FormulaTableData = {
   title: 'Caractéristiques nutritionnelles minimales',
@@ -100,6 +100,47 @@ function PouletDeChair() {
   )
 }
 
+function PoulesPondeuses() {
+  return (
+    <FormulaSection
+      title="Volailles - Poules pondeuses"
+      images={[
+        { src: '/LOGOS/Volailles.png', alt: 'Poules pondeuses' },
+      ]}
+      tables={[
+        {
+          title: 'Poules pondeuses',
+          columns: ['Matière première', 'F1F', 'F2F'],
+          rows: [
+            ['Maïs Bio', '46', '28'],
+            ['T Soja Bio', '20', '10'],
+            ['Blé/Triticale /Sorgho bio', '20', '22'],
+            ['Orge bio', '', '8'],
+            ['Son de blé bio', '5', '5'],
+            ['Féverole Bio', '', '18'],
+            ['Huile végétale bio', '1', '1'],
+            ['Carbonate de Ca', '4', '4'],
+            ['Phosphate bicalcique', '1', '1'],
+            ['CMV ponte bio*', '3', '3'],
+          ],
+        },
+        {
+          title: 'Caractéristiques nutritionnelles minimales',
+          columns: ['Paramètre', 'F1F', 'F2F'],
+          rows: [
+            ['Energie métabolisable', '2900', '2650'],
+            ['Protéines brutes', '18', '16'],
+            ['Calcium', '3,5', '3,5'],
+            ['Phosphore', '0,6', '0,6'],
+            ['Lysine', '0,8', '0,60'],
+            ['Methionine', '0,4', '0,40'],
+          ],
+        },
+      ]}
+    />
+  )
+}
+
 function Lapins() {
   return (
     <FormulaSection
@@ -167,6 +208,17 @@ export function MonogastriquesTabs() {
               >
                 Poulet de chair
               </button>
+              <button
+                type="button"
+                onClick={() => setActive('pondeuses')}
+                className={`mt-2 w-full rounded-md px-3 py-2 text-left text-sm font-semibold ring-1 transition-colors ${
+                  active === 'pondeuses'
+                    ? 'bg-orange-100 text-orange-900 ring-orange-300'
+                    : 'bg-emerald-50 text-emerald-800 ring-emerald-100 hover:bg-emerald-100'
+                }`}
+              >
+                Poules pondeuses
+              </button>
             </div>
           </div>
 
@@ -184,7 +236,15 @@ export function MonogastriquesTabs() {
         </div>
       </div>
 
-      <div className="min-w-0 flex-1">{active === 'poulet' ? <PouletDeChair /> : <Lapins />}</div>
+      <div className="min-w-0 flex-1">
+        {active === 'poulet' ? (
+          <PouletDeChair />
+        ) : active === 'pondeuses' ? (
+          <PoulesPondeuses />
+        ) : (
+          <Lapins />
+        )}
+      </div>
     </div>
   )
 }

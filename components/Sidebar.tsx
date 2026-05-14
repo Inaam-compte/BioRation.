@@ -42,7 +42,7 @@ const mainNavigation = [
     emoji: '📋',
     children: [
       { name: 'Ruminants', href: '/formules/ruminants' },
-      { name: 'Mono-gastriques', href: '/formules/mono-gastriques' },
+      { name: 'Monogastriques', href: '/formules/mono-gastriques' },
     ],
   },
   {

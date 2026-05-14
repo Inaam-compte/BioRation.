@@ -8,7 +8,7 @@ const formulaSections = [
     icon: '🐄',
   },
   {
-    title: 'Mono-gastriques',
+    title: 'Monogastriques',
     description: 'Formules pour volailles et lapins.',
     href: '/formules/mono-gastriques',
     icon: '🐇',
