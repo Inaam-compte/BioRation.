@@ -160,7 +160,7 @@ export default function SupplyClient({ initialStocks, aliments, suppliers, userA
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-green-600">
-              {Math.round(totalValue).toLocaleString()}€
+              {Math.round(totalValue).toLocaleString()} TND
             </p>
             <p className="text-xs text-gray-500">Stock actuel</p>
           </CardContent>
@@ -309,11 +309,11 @@ export default function SupplyClient({ initialStocks, aliments, suppliers, userA
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <p className="text-gray-600">Prix unitaire</p>
-                          <p className="font-semibold">{item.costPerUnit}€/{item.unit}</p>
+                          <p className="font-semibold">{item.costPerUnit} TND/{item.unit}</p>
                         </div>
                         <div>
                           <p className="text-gray-600">Valeur stock</p>
-                          <p className="font-semibold">{Math.round(item.value).toLocaleString()}€</p>
+                          <p className="font-semibold">{Math.round(item.value).toLocaleString()} TND</p>
                         </div>
                       </div>
                       

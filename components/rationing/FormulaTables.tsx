@@ -19,13 +19,13 @@ export function FormulaImages({ images }: { images: FormulaImage[] }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {images.map((image) => (
-        <div key={image.src} className="overflow-hidden rounded-lg border border-emerald-100 bg-white p-2 shadow-sm">
+        <div key={image.src} className="flex items-center justify-center overflow-hidden rounded-lg border border-emerald-100 bg-white p-2 shadow-sm">
           <Image
             src={image.src}
             alt={image.alt}
             width={520}
             height={320}
-            className="h-auto w-full rounded-md object-contain"
+            className="h-48 w-full rounded-md object-contain sm:h-56"
           />
         </div>
       ))}

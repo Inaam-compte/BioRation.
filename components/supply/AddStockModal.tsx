@@ -167,7 +167,7 @@ export default function AddStockModal({ aliments, suppliers, onStockAdded }: Add
             </div>
 
             <div>
-              <Label htmlFor="unitCost">Prix unitaire (€/kg)</Label>
+              <Label htmlFor="unitCost">Prix unitaire (TND/kg)</Label>
               <Input
                 id="unitCost"
                 type="number"
