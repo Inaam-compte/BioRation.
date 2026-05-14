@@ -1,17 +1,20 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const formulaSections = [
   {
     title: 'Ruminants',
     description: 'Formules pour bovins, ovins et caprins.',
     href: '/formules/ruminants',
-    icon: '🐄',
+    image: '/LOGOS/Bovins.png',
+    imageAlt: 'Bovins',
   },
   {
     title: 'Monogastriques',
     description: 'Formules pour volailles et lapins.',
     href: '/formules/mono-gastriques',
-    icon: '🐇',
+    image: '/LOGOS/Volailles.png',
+    imageAlt: 'Volailles',
   },
 ]
 
@@ -33,8 +36,14 @@ export default function FormulesPage() {
               href={section.href}
               className="group rounded-2xl border-2 border-emerald-200 bg-white p-6 shadow-sm transition hover:border-emerald-500 hover:bg-emerald-50 hover:shadow-md"
             >
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600 text-3xl shadow-sm">
-                {section.icon}
+              <div className="mb-5 h-24 w-24 overflow-hidden rounded-2xl border-2 border-emerald-200 bg-white shadow-sm">
+                <Image
+                  src={section.image}
+                  alt={section.imageAlt}
+                  width={120}
+                  height={120}
+                  className="h-full w-full object-cover"
+                />
               </div>
               <h2 className="text-2xl font-extrabold text-gray-950 group-hover:text-emerald-900">
                 {section.title}
