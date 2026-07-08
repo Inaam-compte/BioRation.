@@ -19,7 +19,11 @@ export interface NutritionalNeeds {
   thi: number;
   ci: number; // Capacité d'Ingestion (kg MS)
   totalUFL: number;
-  totalPDI: number; // grams
+  totalPDIE: number; // grams
+  totalPDIN: number; // grams
+  totalPDI: number; // grams, for compatibility
+  calciumNeeds: number; // g/day
+  phosphoreNeeds: number; // g/day
   alerts: string[];
 }
 
@@ -143,7 +147,13 @@ export function calculateTotalNeeds(animal: AnimalData, weather: WeatherData): N
   // Total needs
   const totalUFL = maintenance.ufl + lactation.ufl + gestation.ufl + growth.ufl;
   const totalPDI = maintenance.pdi + lactation.pdi + gestation.pdi + growth.pdi;
-  
+
+  const totalPDIE = totalPDI * 1.05;
+  const totalPDIN = totalPDI * 1.07;
+
+  const calciumNeeds = Math.round((animal.weight * 6 + (animal.milkProduction || 0) * 1.2) * 10) / 10;
+  const phosphoreNeeds = Math.round((animal.weight * 3 + (animal.milkProduction || 0) * 0.8) * 10) / 10;
+
   // Generate alerts
   const alerts: string[] = [];
   
@@ -159,7 +169,11 @@ export function calculateTotalNeeds(animal: AnimalData, weather: WeatherData): N
     thi,
     ci,
     totalUFL: Math.round(totalUFL * 100) / 100,
+    totalPDIE: Math.round(totalPDIE),
+    totalPDIN: Math.round(totalPDIN),
     totalPDI: Math.round(totalPDI),
+    calciumNeeds,
+    phosphoreNeeds,
     alerts
   };
 }
