@@ -58,11 +58,12 @@ interface AlimentFormData {
   tannins_totaux: number
   tannins_condenses: number
   isPublic: boolean
+  biologique: boolean
 }
 
 type CompositionFieldKey = keyof Omit<
   AlimentFormData,
-  'name_fr' | 'name_ar' | 'category_fr' | 'category_ar' | 'isPublic'
+  'name_fr' | 'name_ar' | 'category_fr' | 'category_ar' | 'isPublic' | 'biologique'
 >
 
 interface CompositionField {
@@ -115,6 +116,7 @@ const defaultFormData: AlimentFormData = {
   tannins_totaux: 0,
   tannins_condenses: 0,
   isPublic: false,
+  biologique: false,
 }
 
 export default function AddAlimentModal({ open, onClose, onSuccess, mode = 'create', alimentId, initialData }: AddAlimentModalProps) {
@@ -345,6 +347,23 @@ export default function AddAlimentModal({ open, onClose, onSuccess, mode = 'crea
                             Rendre cet aliment disponible à tous les utilisateurs
                           </span>
                         </label>
+                      </div>
+
+                      <div>
+                        <label className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={formData.biologique}
+                            onChange={(e) => setFormData(prev => ({ ...prev, biologique: e.target.checked }))}
+                            className="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                          />
+                          <span className="ml-2 text-sm font-medium text-gray-700">
+                            Certifié agriculture biologique
+                          </span>
+                        </label>
+                        <p className="mt-1 text-xs text-gray-500">
+                          Ne cocher que si l'aliment est réellement certifié bio (par défaut : non).
+                        </p>
                       </div>
                     </div>
 

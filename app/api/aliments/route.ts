@@ -10,6 +10,7 @@ const alimentListSelect = {
   name_ar: true,
   category_fr: true,
   category_ar: true,
+  biologique: true,
   ms_percentage: true,
   ufl_per_kg_ms: true,
   pdie_per_kg_ms: true,
@@ -62,6 +63,7 @@ const alimentSchema = z.object({
   tannins_totaux: z.number().min(0).optional(),
   tannins_condenses: z.number().min(0).optional(),
   isPublic: z.boolean().default(false),
+  biologique: z.boolean().default(false),
 })
 
 export async function GET(request: NextRequest) {

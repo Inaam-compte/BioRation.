@@ -17,7 +17,10 @@ export function FeedSelector({ aliments, onToggle }: Props) {
           <label key={a.id} className="flex items-center gap-2 border p-2 rounded">
             <input type="checkbox" defaultChecked onChange={(e) => onToggle?.(a.id, e.target.checked)} />
             <div className="flex-1 text-sm">
-              <div className="font-medium">{a.nom}</div>
+              <div className="font-medium flex items-center gap-2">
+                {a.nom}
+                {a.biologique && <span className="text-xs text-green-600 font-normal">bio</span>}
+              </div>
               <div className="text-xs text-gray-500">{a.categorie} — MS {a.ms_percentage}%</div>
             </div>
             <div className="text-xs font-semibold">{typeof a.ufl_par_kg_ms === 'number' ? a.ufl_par_kg_ms.toFixed(2) : '-'}</div>

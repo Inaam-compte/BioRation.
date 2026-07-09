@@ -1,9 +1,11 @@
 /**
  * Optimiseur de rations automatique
- * Propose une ration équilibrée selon les besoins calculés
+ * Propose une ration équilibrée selon les besoins calculés (INRA 2018, mode biologique)
  */
 
 import { DairyCowNeeds, BeefBullNeeds, SheepNeeds } from './inra-calculations'
+
+export type Espece = 'vache' | 'taurillon' | 'ovin'
 
 export interface AlimentDispo {
   id: string
@@ -16,6 +18,8 @@ export interface AlimentDispo {
   calcium_par_kg_ms: number
   phosphore_par_kg_ms: number
   biologique: boolean
+  prix_par_kg?: number // coût par kg de matière brute
+  especesCompatibles?: Espece[] // si absent: compatible avec toutes les espèces
 }
 
 export interface RationItem {
@@ -26,8 +30,11 @@ export interface RationItem {
   apportPDI: number
   apportCalcium: number
   apportPhosphore: number
+  cout: number
   pourcentageBesoins: number
 }
+
+export type CouvertureStatut = 'vert' | 'orange' | 'rouge'
 
 export interface RationOptimale {
   aliments: RationItem[]
@@ -36,11 +43,184 @@ export interface RationOptimale {
   totalMS: number
   totalCalcium: number
   totalPhosphore: number
+  totalCout: number
   couvertureUFL: number // %
   couverturePDI: number // %
   couvertureMS: number // %
   pourcentsForrage: number // %
+  statut: CouvertureStatut
   alertes: string[]
+}
+
+function estCompatible(aliment: AlimentDispo, espece: Espece): boolean {
+  if (!aliment.especesCompatibles || aliment.especesCompatibles.length === 0) return true
+  return aliment.especesCompatibles.includes(espece)
+}
+
+function statutCouverture(couvertureUFL: number, couverturePDI: number, couvertureMS: number): CouvertureStatut {
+  const min = Math.min(couvertureUFL, couverturePDI)
+  if (min >= 95 && couvertureMS <= 105) return 'vert'
+  if (min >= 80) return 'orange'
+  return 'rouge'
+}
+
+/**
+ * Moteur de formulation générique :
+ * 1. Filtre les aliments compatibles avec l'espèce
+ * 2. Priorise les fourrages biologiques
+ * 3. Respecte un minimum de 60% de fourrages (MS) pour les ruminants
+ * 4. Complète avec des concentrés (bio en priorité) pour couvrir l'énergie
+ * 5. Respecte la capacité d'ingestion
+ */
+function construireRation(
+  espece: Espece,
+  besoinUFL: number,
+  besoinPDI: number,
+  capaciteIngestion: number,
+  aliments: AlimentDispo[]
+): RationItem[] {
+  const compatibles = aliments.filter(a => estCompatible(a, espece))
+
+  const trierBioPuisEnergie = (a: AlimentDispo, b: AlimentDispo) => {
+    if (a.biologique !== b.biologique) return a.biologique ? -1 : 1
+    return b.ufl_par_kg_ms - a.ufl_par_kg_ms
+  }
+
+  const fourrages = compatibles
+    .filter(a => a.categorie === 'fourrage' || a.categorie === 'verdure')
+    .sort(trierBioPuisEnergie)
+
+  const concentres = compatibles
+    .filter(a => a.categorie === 'concentre')
+    .sort(trierBioPuisEnergie)
+
+  const ration: RationItem[] = []
+  const msMinFourrage = capaciteIngestion * 0.6
+  let msFourrage = 0
+
+  const ajouter = (aliment: AlimentDispo, quantiteMS: number) => {
+    if (quantiteMS <= 0) return
+    const quantiteBrute = quantiteMS / (aliment.ms_percentage / 100)
+    ration.push({
+      aliment,
+      quantiteBrute,
+      quantiteMS,
+      apportUFL: quantiteMS * aliment.ufl_par_kg_ms,
+      apportPDI: quantiteMS * aliment.pdie_par_kg_ms,
+      apportCalcium: quantiteMS * aliment.calcium_par_kg_ms,
+      apportPhosphore: quantiteMS * aliment.phosphore_par_kg_ms,
+      cout: quantiteBrute * (aliment.prix_par_kg ?? 0),
+      pourcentageBesoins: 0
+    })
+  }
+
+  // 1. Fourrages jusqu'au minimum de 60% de la capacité d'ingestion
+  for (const fourrage of fourrages) {
+    if (msFourrage >= msMinFourrage) break
+    const quantiteMS = Math.min(5, msMinFourrage - msFourrage)
+    ajouter(fourrage, quantiteMS)
+    msFourrage += quantiteMS
+  }
+
+  // 2. Concentrés pour couvrir l'énergie restante, sans dépasser la capacité d'ingestion
+  let msTotale = ration.reduce((s, i) => s + i.quantiteMS, 0)
+  let uflActuelle = ration.reduce((s, i) => s + i.apportUFL, 0)
+
+  for (const concentre of concentres) {
+    if (uflActuelle >= besoinUFL) break
+    if (msTotale >= capaciteIngestion) break
+
+    const uflManquante = besoinUFL - uflActuelle
+    const msParEnergie = concentre.ufl_par_kg_ms > 0 ? uflManquante / concentre.ufl_par_kg_ms : 0
+    const msDisponible = capaciteIngestion - msTotale
+    const quantiteMS = Math.max(0, Math.min(3, msParEnergie, msDisponible))
+
+    ajouter(concentre, quantiteMS)
+    msTotale += quantiteMS
+    uflActuelle += quantiteMS * concentre.ufl_par_kg_ms
+  }
+
+  // 3. Si l'énergie reste insuffisante et de la capacité est encore disponible, ajouter plus de fourrage
+  msTotale = ration.reduce((s, i) => s + i.quantiteMS, 0)
+  uflActuelle = ration.reduce((s, i) => s + i.apportUFL, 0)
+
+  for (const fourrage of fourrages) {
+    if (uflActuelle >= besoinUFL) break
+    if (msTotale >= capaciteIngestion) break
+
+    const msDisponible = capaciteIngestion - msTotale
+    const quantiteMS = Math.min(3, msDisponible)
+    ajouter(fourrage, quantiteMS)
+    msTotale += quantiteMS
+    uflActuelle += quantiteMS * fourrage.ufl_par_kg_ms
+  }
+
+  return ration
+}
+
+function calculerTotaux(
+  ration: RationItem[],
+  besoinUFL: number,
+  besoinPDI: number,
+  besoinMS: number
+): RationOptimale {
+  const totalUFL = ration.reduce((sum, item) => sum + item.apportUFL, 0)
+  const totalPDI = ration.reduce((sum, item) => sum + item.apportPDI, 0)
+  const totalMS = ration.reduce((sum, item) => sum + item.quantiteMS, 0)
+  const totalCalcium = ration.reduce((sum, item) => sum + item.apportCalcium, 0)
+  const totalPhosphore = ration.reduce((sum, item) => sum + item.apportPhosphore, 0)
+  const totalCout = ration.reduce((sum, item) => sum + item.cout, 0)
+
+  const msFourrage = ration
+    .filter(item => item.aliment.categorie === 'fourrage' || item.aliment.categorie === 'verdure')
+    .reduce((sum, item) => sum + item.quantiteMS, 0)
+  const pourcentsForrage = totalMS > 0 ? (msFourrage / totalMS) * 100 : 0
+
+  const couvertureUFL = besoinUFL > 0 ? (totalUFL / besoinUFL) * 100 : 0
+  const couverturePDI = besoinPDI > 0 ? (totalPDI / besoinPDI) * 100 : 0
+  const couvertureMS = besoinMS > 0 ? (totalMS / besoinMS) * 100 : 0
+
+  const alertes: string[] = []
+
+  if (couvertureUFL < 90) {
+    alertes.push(`❌ Énergie insuffisante: ${totalUFL.toFixed(1)} UFL fournis vs ${besoinUFL.toFixed(1)} UFL besoins`)
+  } else if (couvertureUFL < 100) {
+    alertes.push(`⚠️ Énergie légèrement insuffisante (${couvertureUFL.toFixed(0)}%)`)
+  }
+
+  if (couverturePDI < 90) {
+    alertes.push(`❌ Protéines insuffisantes (${couverturePDI.toFixed(0)}%)`)
+  } else if (couverturePDI < 100) {
+    alertes.push(`⚠️ Protéines légèrement insuffisantes (${couverturePDI.toFixed(0)}%)`)
+  }
+
+  if (totalMS > besoinMS * 1.02) {
+    alertes.push(`⚠️ MS proposée dépasse la capacité d'ingestion`)
+  }
+
+  if (pourcentsForrage < 60) {
+    alertes.push(`⚠️ Fourrages en-dessous du minimum de 60% de la MS (${pourcentsForrage.toFixed(0)}%)`)
+  }
+
+  if (alertes.length === 0) {
+    alertes.push('✅ Ration équilibrée')
+  }
+
+  return {
+    aliments: ration,
+    totalUFL,
+    totalPDI,
+    totalMS,
+    totalCalcium,
+    totalPhosphore,
+    totalCout,
+    couvertureUFL,
+    couverturePDI,
+    couvertureMS,
+    pourcentsForrage,
+    statut: statutCouverture(couvertureUFL, couverturePDI, couvertureMS),
+    alertes
+  }
 }
 
 // Optimiseur pour vaches laitières
@@ -48,261 +228,24 @@ export function optimiserRationVacheLaitiere(
   besoins: DairyCowNeeds,
   aliments: AlimentDispo[]
 ): RationOptimale {
-  const ration: RationItem[] = []
-  const alimentsDisponibles = [...aliments]
-  
-  // 1. Sélectionner fourrages biologiques en priorité
-  const fourragesBio = alimentsDisponibles.filter(
-    a => a.categorie === 'fourrage' && a.biologique
-  ).sort((a, b) => b.ufl_par_kg_ms - a.ufl_par_kg_ms)
-
-  const fourragesTous = alimentsDisponibles.filter(
-    a => a.categorie === 'fourrage'
-  ).sort((a, b) => b.ufl_par_kg_ms - a.ufl_par_kg_ms)
-
-  // 2. Ajouter fourrages (60% minimum de MS)
-  let msFourrage = 0
-  const msMin = besoins.msRecommandee * 0.6
-  
-  const fourrageSelection = fourragesBio.length > 0 ? fourragesBio : fourragesTous
-  
-  for (const fourrage of fourrageSelection) {
-    if (msFourrage >= msMin) break
-    
-    const quantiteMS = Math.min(5, msMin - msFourrage) // Max 5kg MS par fourrage
-    const quantiteBrute = quantiteMS / (fourrage.ms_percentage / 100)
-    
-    ration.push({
-      aliment: fourrage,
-      quantiteBrute,
-      quantiteMS,
-      apportUFL: quantiteMS * fourrage.ufl_par_kg_ms,
-      apportPDI: quantiteMS * fourrage.pdie_par_kg_ms,
-      apportCalcium: quantiteMS * fourrage.calcium_par_kg_ms,
-      apportPhosphore: quantiteMS * fourrage.phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-    
-    msFourrage += quantiteMS
-  }
-
-  // 3. Ajouter concentrés pour couvrir l'énergie restante
-  const uflActuelle = ration.reduce((sum, item) => sum + item.apportUFL, 0)
-  const uflManquante = Math.max(0, besoins.uflTotal - uflActuelle)
-
-  const concentres = alimentsDisponibles
-    .filter(a => a.categorie === 'concentre')
-    .sort((a, b) => b.ufl_par_kg_ms - a.ufl_par_kg_ms)
-
-  for (const concentre of concentres) {
-    if (uflActuelle >= besoins.uflTotal) break
-    
-    const quantiteMS = Math.min(3, uflManquante / concentre.ufl_par_kg_ms)
-    const quantiteBrute = quantiteMS / (concentre.ms_percentage / 100)
-    
-    ration.push({
-      aliment: concentre,
-      quantiteBrute,
-      quantiteMS,
-      apportUFL: quantiteMS * concentre.ufl_par_kg_ms,
-      apportPDI: quantiteMS * concentre.pdie_par_kg_ms,
-      apportCalcium: quantiteMS * concentre.calcium_par_kg_ms,
-      apportPhosphore: quantiteMS * concentre.phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-  }
-
-  // 4. Calculer totaux et vérifications
-  const totalUFL = ration.reduce((sum, item) => sum + item.apportUFL, 0)
-  const totalPDI = ration.reduce((sum, item) => sum + item.apportPDI, 0)
-  const totalMS = ration.reduce((sum, item) => sum + item.quantiteMS, 0)
-  const totalCalcium = ration.reduce((sum, item) => sum + item.apportCalcium, 0)
-  const totalPhosphore = ration.reduce((sum, item) => sum + item.apportPhosphore, 0)
-
-  const pourcentsForrage = (ration
-    .filter(item => item.aliment.categorie === 'fourrage')
-    .reduce((sum, item) => sum + item.quantiteMS, 0) / totalMS) * 100
-
-  const alertes: string[] = []
-  
-  if (totalUFL < besoins.uflTotal * 0.9) {
-    alertes.push(`❌ Énergie insuffisante: ${totalUFL.toFixed(1)} UFL fournis vs ${besoins.uflTotal.toFixed(1)} UFL besoins`)
-  } else if (totalUFL < besoins.uflTotal) {
-    alertes.push(`⚠️ Énergie légèrement insuffisante`)
-  }
-
-  if (totalPDI < besoins.pdiTotal * 0.9) {
-    alertes.push(`❌ Protéines insuffisantes`)
-  }
-
-  if (totalMS > besoins.capaciteIngestion) {
-    alertes.push(`⚠️ MS proposée dépasse capacité d'ingestion`)
-  }
-
-  if (pourcentsForrage < 60) {
-    alertes.push(`⚠️ Fourrages en-dessous de 60% de la MS`)
-  }
-
-  if (alertes.length === 0) {
-    alertes.push(`✅ Ration équilibrée`)
-  }
-
-  return {
-    aliments: ration,
-    totalUFL,
-    totalPDI,
-    totalMS,
-    totalCalcium,
-    totalPhosphore,
-    couvertureUFL: (totalUFL / besoins.uflTotal) * 100,
-    couverturePDI: (totalPDI / besoins.pdiTotal) * 100,
-    couvertureMS: (totalMS / besoins.msRecommandee) * 100,
-    pourcentsForrage,
-    alertes
-  }
+  const ration = construireRation('vache', besoins.uflTotal, besoins.pdiTotal, besoins.capaciteIngestion, aliments)
+  return calculerTotaux(ration, besoins.uflTotal, besoins.pdiTotal, besoins.capaciteIngestion)
 }
 
-// Optimiseur pour taurillons
+// Optimiseur pour taurillons à l'engraissement
 export function optimiserRationTaurillon(
   besoins: BeefBullNeeds,
   aliments: AlimentDispo[]
 ): RationOptimale {
-  // Logique similaire aux vaches laitières
-  // mais avec UFV au lieu de UFL
-  const ration: RationItem[] = []
-  
-  // Implémentation simplifiée pour MVP
-  // Utiliser 70% fourrages, 30% concentrés
-  const fourrages = aliments.filter(a => a.categorie === 'fourrage')
-  const concentres = aliments.filter(a => a.categorie === 'concentre')
-
-  const msCapacite = (besoins.pv * 2.2) / 100
-
-  // 70% fourrages
-  if (fourrages.length > 0) {
-    const msForrage = msCapacite * 0.7
-    const quantiteBrute = msForrage / (fourrages[0].ms_percentage / 100)
-    
-    ration.push({
-      aliment: fourrages[0],
-      quantiteBrute,
-      quantiteMS: msForrage,
-      apportUFL: msForrage * fourrages[0].ufl_par_kg_ms,
-      apportPDI: msForrage * fourrages[0].pdie_par_kg_ms,
-      apportCalcium: msForrage * fourrages[0].calcium_par_kg_ms,
-      apportPhosphore: msForrage * fourrages[0].phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-  }
-
-  // 30% concentrés
-  if (concentres.length > 0) {
-    const msConcentre = msCapacite * 0.3
-    const quantiteBrute = msConcentre / (concentres[0].ms_percentage / 100)
-    
-    ration.push({
-      aliment: concentres[0],
-      quantiteBrute,
-      quantiteMS: msConcentre,
-      apportUFL: msConcentre * concentres[0].ufl_par_kg_ms,
-      apportPDI: msConcentre * concentres[0].pdie_par_kg_ms,
-      apportCalcium: msConcentre * concentres[0].calcium_par_kg_ms,
-      apportPhosphore: msConcentre * concentres[0].phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-  }
-
-  const totalUFL = ration.reduce((sum, item) => sum + item.apportUFL, 0)
-  const totalPDI = ration.reduce((sum, item) => sum + item.apportPDI, 0)
-  const totalMS = ration.reduce((sum, item) => sum + item.quantiteMS, 0)
-  const totalCalcium = ration.reduce((sum, item) => sum + item.apportCalcium, 0)
-  const totalPhosphore = ration.reduce((sum, item) => sum + item.apportPhosphore, 0)
-
-  const pourcentsForrage = (ration
-    .filter(item => item.aliment.categorie === 'fourrage')
-    .reduce((sum, item) => sum + item.quantiteMS, 0) / totalMS) * 100
-
-  return {
-    aliments: ration,
-    totalUFL,
-    totalPDI,
-    totalMS,
-    totalCalcium,
-    totalPhosphore,
-    couvertureUFL: (totalUFL / besoins.ufvTotal) * 100,
-    couverturePDI: (totalPDI / besoins.pdiTotal) * 100,
-    couvertureMS: (totalMS / ((besoins.pv * 2.2) / 100)) * 100,
-    pourcentsForrage,
-    alertes: ['✅ Ration proposée']
-  }
+  const ration = construireRation('taurillon', besoins.ufvTotal, besoins.pdiTotal, besoins.capaciteIngestion, aliments)
+  return calculerTotaux(ration, besoins.ufvTotal, besoins.pdiTotal, besoins.capaciteIngestion)
 }
 
-// Optimiseur pour ovins
+// Optimiseur pour ovins à l'engraissement
 export function optimiserRationOvin(
   besoins: SheepNeeds,
   aliments: AlimentDispo[]
 ): RationOptimale {
-  // Logique pour ovins (70% fourrages, 30% concentrés)
-  const ration: RationItem[] = []
-  
-  const fourrages = aliments.filter(a => a.categorie === 'fourrage')
-  const concentres = aliments.filter(a => a.categorie === 'concentre')
-
-  const msCapacite = (besoins.pv * 2.7) / 100
-
-  if (fourrages.length > 0) {
-    const msForrage = msCapacite * 0.7
-    const quantiteBrute = msForrage / (fourrages[0].ms_percentage / 100)
-    
-    ration.push({
-      aliment: fourrages[0],
-      quantiteBrute,
-      quantiteMS: msForrage,
-      apportUFL: msForrage * fourrages[0].ufl_par_kg_ms,
-      apportPDI: msForrage * fourrages[0].pdie_par_kg_ms,
-      apportCalcium: msForrage * fourrages[0].calcium_par_kg_ms,
-      apportPhosphore: msForrage * fourrages[0].phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-  }
-
-  if (concentres.length > 0) {
-    const msConcentre = msCapacite * 0.3
-    const quantiteBrute = msConcentre / (concentres[0].ms_percentage / 100)
-    
-    ration.push({
-      aliment: concentres[0],
-      quantiteBrute,
-      quantiteMS: msConcentre,
-      apportUFL: msConcentre * concentres[0].ufl_par_kg_ms,
-      apportPDI: msConcentre * concentres[0].pdie_par_kg_ms,
-      apportCalcium: msConcentre * concentres[0].calcium_par_kg_ms,
-      apportPhosphore: msConcentre * concentres[0].phosphore_par_kg_ms,
-      pourcentageBesoins: 0
-    })
-  }
-
-  const totalUFL = ration.reduce((sum, item) => sum + item.apportUFL, 0)
-  const totalPDI = ration.reduce((sum, item) => sum + item.apportPDI, 0)
-  const totalMS = ration.reduce((sum, item) => sum + item.quantiteMS, 0)
-  const totalCalcium = ration.reduce((sum, item) => sum + item.apportCalcium, 0)
-  const totalPhosphore = ration.reduce((sum, item) => sum + item.apportPhosphore, 0)
-
-  const pourcentsForrage = (ration
-    .filter(item => item.aliment.categorie === 'fourrage')
-    .reduce((sum, item) => sum + item.quantiteMS, 0) / totalMS) * 100
-
-  return {
-    aliments: ration,
-    totalUFL,
-    totalPDI,
-    totalMS,
-    totalCalcium,
-    totalPhosphore,
-    couvertureUFL: (totalUFL / besoins.uflTotal) * 100,
-    couverturePDI: (totalPDI / besoins.pdiTotal) * 100,
-    couvertureMS: (totalMS / ((besoins.pv * 2.7) / 100)) * 100,
-    pourcentsForrage,
-    alertes: ['✅ Ration proposée']
-  }
+  const ration = construireRation('ovin', besoins.uflTotal, besoins.pdiTotal, besoins.capaciteIngestion, aliments)
+  return calculerTotaux(ration, besoins.uflTotal, besoins.pdiTotal, besoins.capaciteIngestion)
 }

@@ -45,6 +45,7 @@ const alimentUpdateSchema = z.object({
   tannins_totaux: z.number().min(0).optional(),
   tannins_condenses: z.number().min(0).optional(),
   isPublic: z.boolean().optional(),
+  biologique: z.boolean().optional(),
 })
 
 export async function GET(

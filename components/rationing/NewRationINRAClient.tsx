@@ -6,15 +6,10 @@ import { ArrowLeft, Milk, Beef, PawPrint, ChevronDown, ArrowRight } from 'lucide
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { DairyCowCalculator } from '@/components/rationing/DairyCowCalculator'
-import { BeefBullCalculatorV2 } from '@/components/rationing/BeefBullCalculatorV2'
-import { SheepCalculator } from '@/components/rationing/SheepCalculator'
-import { NutritionSummary } from '@/components/rationing/NutritionSummary'
-import { FeedSelector } from '@/components/rationing/FeedSelector'
-import { RationTable } from '@/components/rationing/RationTable'
-import { NutritionCharts } from '@/components/rationing/NutritionCharts'
+import { BesoinsCalculator } from '@/components/rationing/BesoinsCalculator'
+import { RationOptimizer } from '@/components/rationing/RationOptimizer'
 import { DairyCowNeeds, BeefBullNeeds, SheepNeeds } from '@/lib/inra-calculations'
-import { RationOptimale, optimiserRationVacheLaitiere, optimiserRationTaurillon, optimiserRationOvin, AlimentDispo } from '@/lib/ration-optimizer'
+import { AlimentDispo } from '@/lib/ration-optimizer'
 
 interface Aliment {
   id: string
@@ -69,6 +64,7 @@ const alimentsParDefaut: AlimentDispo[] = [
     pdin_par_kg_ms: 65,
     calcium_par_kg_ms: 5,
     phosphore_par_kg_ms: 2,
+    prix_par_kg: 0.35,
     biologique: true
   },
   {
@@ -81,6 +77,7 @@ const alimentsParDefaut: AlimentDispo[] = [
     pdin_par_kg_ms: 120,
     calcium_par_kg_ms: 12,
     phosphore_par_kg_ms: 2.5,
+    prix_par_kg: 0.45,
     biologique: true
   },
   {
@@ -93,6 +90,7 @@ const alimentsParDefaut: AlimentDispo[] = [
     pdin_par_kg_ms: 75,
     calcium_par_kg_ms: 2,
     phosphore_par_kg_ms: 2,
+    prix_par_kg: 0.15,
     biologique: false
   },
   {
@@ -105,6 +103,7 @@ const alimentsParDefaut: AlimentDispo[] = [
     pdin_par_kg_ms: 95,
     calcium_par_kg_ms: 0.5,
     phosphore_par_kg_ms: 3.5,
+    prix_par_kg: 0.55,
     biologique: true
   },
   {
@@ -117,6 +116,7 @@ const alimentsParDefaut: AlimentDispo[] = [
     pdin_par_kg_ms: 350,
     calcium_par_kg_ms: 3,
     phosphore_par_kg_ms: 6,
+    prix_par_kg: 0.95,
     biologique: true
   }
 ]
@@ -125,20 +125,20 @@ export function NewRationINRAClient({ categories, aliments }: NewRationINRAClien
   const [stage, setStage] = useState<StageType>('selection')
   const [selectedCategory, setSelectedCategory] = useState<CategoryData | null>(null)
   const [besoins, setBesoins] = useState<DairyCowNeeds | BeefBullNeeds | SheepNeeds | null>(null)
-  const [ration, setRation] = useState<RationOptimale | null>(null)
   const [alimentsDispo, setAlimentsDispo] = useState<AlimentDispo[]>(() => (
     aliments && aliments.length > 0 ? aliments.map(a => ({
       id: a.id,
       nom: a.nom,
       categorie: a.categorie,
       ms_percentage: a.ms_pourcentage,
-      ufl_par_kg_ms: (a as any).ufl_par_kg_ms ?? 0,
-      pdie_par_kg_ms: (a as any).pdie_par_kg_ms ?? 0,
-      pdin_par_kg_ms: (a as any).pdin_par_kg_ms ?? 0,
-      calcium_par_kg_ms: (a as any).calcium_par_kg_ms ?? 0,
-      phosphore_par_kg_ms: (a as any).phosphore_par_kg_ms ?? 0,
-      biologique: (a as any).biologique ?? true,
-      ndf_par_kg_ms: (a as any).ndf_par_kg_ms ?? 0
+      ufl_par_kg_ms: (a as any).ufl_par_kg_ms || 0.8,
+      pdie_par_kg_ms: (a as any).pdie_par_kg_ms || 60,
+      pdin_par_kg_ms: (a as any).pdin_par_kg_ms || 70,
+      calcium_par_kg_ms: (a as any).calcium_par_kg_ms || 3,
+      phosphore_par_kg_ms: (a as any).phosphore_par_kg_ms || 2,
+      prix_par_kg: (a as any).prix_par_kg || 0,
+      // Toujours fail-closed : un aliment n'est bio que si explicitement marqué comme tel en base.
+      biologique: (a as any).biologique ?? false
     })) : alimentsParDefaut
   ))
 
@@ -149,31 +149,6 @@ export function NewRationINRAClient({ categories, aliments }: NewRationINRAClien
 
   const handleBesoinsCalculated = (newBesoins: DairyCowNeeds | BeefBullNeeds | SheepNeeds) => {
     setBesoins(newBesoins)
-    
-    // Optimiser la ration automatiquement en utilisant la liste d'aliments disponible
-    const alimentsPourOpt = alimentsDispo.map(a => ({
-      ...a,
-      ufl_par_kg_ms: a.ufl_par_kg_ms || 0.8,
-      pdie_par_kg_ms: a.pdie_par_kg_ms || 60,
-      pdin_par_kg_ms: a.pdin_par_kg_ms || 70,
-      calcium_par_kg_ms: a.calcium_par_kg_ms || 3,
-      phosphore_par_kg_ms: a.phosphore_par_kg_ms || 2,
-      biologique: a.biologique || false
-    }))
-
-    let rationOptimale: RationOptimale
-    
-    if (selectedCategory?.type === 'vache' && 'uflTotal' in newBesoins) {
-      rationOptimale = optimiserRationVacheLaitiere(newBesoins as DairyCowNeeds, alimentsPourOpt)
-    } else if (selectedCategory?.type === 'taurillon' && 'ufvTotal' in newBesoins) {
-      rationOptimale = optimiserRationTaurillon(newBesoins as BeefBullNeeds, alimentsPourOpt)
-    } else if (selectedCategory?.type === 'ovin' && 'uflTotal' in newBesoins) {
-      rationOptimale = optimiserRationOvin(newBesoins as SheepNeeds, alimentsPourOpt)
-    } else {
-      rationOptimale = { aliments: [], totalUFL: 0, totalPDI: 0, totalMS: 0, totalCalcium: 0, totalPhosphore: 0, couvertureUFL: 0, couverturePDI: 0, couvertureMS: 0, pourcentsForrage: 0, alertes: [] }
-    }
-
-    setRation(rationOptimale)
     setStage('resultats')
   }
 
@@ -181,7 +156,6 @@ export function NewRationINRAClient({ categories, aliments }: NewRationINRAClien
     setStage('selection')
     setSelectedCategory(null)
     setBesoins(null)
-    setRation(null)
   }
 
   return (
@@ -264,20 +238,12 @@ export function NewRationINRAClient({ categories, aliments }: NewRationINRAClien
               </div>
             </div>
 
-            {selectedCategory.type === 'vache' && (
-              <DairyCowCalculator onCalculated={handleBesoinsCalculated} />
-            )}
-            {selectedCategory.type === 'taurillon' && (
-              <BeefBullCalculatorV2 onCalculated={handleBesoinsCalculated} />
-            )}
-            {selectedCategory.type === 'ovin' && (
-              <SheepCalculator onCalculated={handleBesoinsCalculated} />
-            )}
+            <BesoinsCalculator animalType={selectedCategory.type} onCalculated={handleBesoinsCalculated} />
           </div>
         )}
 
         {/* STAGE 3: Résultats */}
-        {stage === 'resultats' && selectedCategory && besoins && ration && (
+        {stage === 'resultats' && selectedCategory && besoins && (
           <div className="space-y-8">
             <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 border border-green-200">
               <div className="rounded-full bg-white p-2 shadow-sm">
@@ -290,27 +256,11 @@ export function NewRationINRAClient({ categories, aliments }: NewRationINRAClien
               <Badge className="bg-green-600">Calculée</Badge>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-3">
-              <div className="lg:col-span-1 space-y-4">
-                <FeedSelector
-                  aliments={alimentsDispo}
-                  onToggle={(id, enabled) => {
-                    // placeholder: future enable/disable handling
-                    console.log('toggle', id, enabled)
-                  }}
-                />
-              </div>
-
-              <div className="lg:col-span-2 space-y-4">
-                <NutritionCharts ration={ration} />
-                <NutritionSummary
-                  ration={ration}
-                  besoins={besoins}
-                  animalType={selectedCategory.type}
-                />
-                <RationTable ration={ration} />
-              </div>
-            </div>
+            <RationOptimizer
+              animalType={selectedCategory.type}
+              besoins={besoins}
+              aliments={alimentsDispo}
+            />
 
             <div className="flex gap-4">
               <Button variant="outline" onClick={handleReset}>

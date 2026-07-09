@@ -100,6 +100,7 @@ model Aliment {
   name_ar       String
   category_fr   String   // "Fourrage grossier", "Verdure", "Concentré", "Correcteur"
   category_ar   String
+  biologique    Boolean  @default(false) // Certifié agriculture biologique (false par défaut: statut à confirmer explicitement)
   ms_percentage Float    // Pourcentage de matière sèche (%)
   ufl_per_kg_ms Float?   // UFL par kg de MS (nullable pour CMV etc.)
   pdie_per_kg_ms Float?  // PDIE (g) par kg de MS (nullable pour CMV etc.)

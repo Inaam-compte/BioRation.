@@ -117,8 +117,9 @@ export function calculateDairyCowNeeds(input: Omit<DairyCowNeeds, 'uflEntretien'
   
   const msRecommandee = (pv * pourcentageMS) / 100
 
-  // CAPACITÉ D'INGESTION: 1.5% du PV en MS pour fourrage
-  const capaciteIngestion = (pv * 1.5) / 100
+  // CAPACITÉ D'INGESTION (INRA): dépend du poids métabolique ET de la production laitière
+  // (une vache laitière en production ingère bien plus que son seul entretien)
+  const capaciteIngestion = Math.max(msRecommandee, 1.4 * ((pv / 100) + 2) - 1.5 + 0.3 * productionLait)
 
   // MINÉRAUX (approximations)
   const calcium = pv * 0.008 + productionLait * 0.5
@@ -210,21 +211,24 @@ export function calculateSheepNeeds(input: Omit<SheepNeeds, 'uflEntretien' | 'uf
   const uflEntretien = 0.036 * Math.pow(pv, 0.75)
 
   // UFL CROISSANCE selon GMQ
+  // Recalibré sur des références zootechniques standards (agneaux à l'engraissement,
+  // ~0.0045-0.005 UFL par gramme de GMQ) — les valeurs précédentes (0.8 à 3.2 UFL)
+  // étaient surestimées d'un facteur ~2 à 3 et rendaient toute ration irréaliste.
   let uflCroissance = 0
-  if (gmq <= 50) {
-    uflCroissance = 0.8
-  } else if (gmq <= 100) {
-    uflCroissance = 1.2
+  if (gmq <= 100) {
+    uflCroissance = 0.45
   } else if (gmq <= 150) {
-    uflCroissance = 1.6
+    uflCroissance = 0.65
   } else if (gmq <= 200) {
-    uflCroissance = 2.0
+    uflCroissance = 0.90
   } else if (gmq <= 250) {
-    uflCroissance = 2.4
+    uflCroissance = 1.15
   } else if (gmq <= 300) {
-    uflCroissance = 2.8
+    uflCroissance = 1.40
+  } else if (gmq <= 350) {
+    uflCroissance = 1.65
   } else {
-    uflCroissance = 3.2
+    uflCroissance = 1.90
   }
 
   // UFL TOTAL
@@ -233,8 +237,10 @@ export function calculateSheepNeeds(input: Omit<SheepNeeds, 'uflEntretien' | 'uf
   // PDI: 90 g par UFL
   const pdiTotal = uflTotal * 90
 
-  // CAPACITÉ D'INGESTION: 2.5-3% du PV en MS
-  const capaciteIngestion = (pv * 2.7) / 100
+  // CAPACITÉ D'INGESTION: agneau en croissance, 3.5-4.5% du PV en MS
+  // (plus élevée que l'estimation précédente de 2.7%, alignée sur la littérature
+  // zootechnique pour l'engraissement des agneaux ; augmente légèrement avec le GMQ visé)
+  const capaciteIngestion = (pv * (3.7 + gmq / 400)) / 100
 
   // MINÉRAUX (plus faibles que bovins)
   const calcium = pv * 0.004

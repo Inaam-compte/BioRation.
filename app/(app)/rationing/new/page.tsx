@@ -52,7 +52,7 @@ export default async function NewRationPage() {
     ndf_par_kg_ms: aliment.ndf_per_kg_ms ?? aliment.ndf_percentage_brut ?? 0,
     calcium_par_kg_ms: aliment.ca_g_per_kg_brut ?? 0,
     phosphore_par_kg_ms: aliment.p_g_per_kg_brut ?? 0,
-    biologique: aliment.isPublic ?? true
+    biologique: aliment.biologique ?? false
   }))
 
   return <NewRationINRAClient categories={categories} aliments={alimentsData} />

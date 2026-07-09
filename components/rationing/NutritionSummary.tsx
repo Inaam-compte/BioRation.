@@ -2,8 +2,7 @@
 
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { AlertCircle, CheckCircle, AlertTriangle, Zap, Leaf, Droplet } from 'lucide-react'
+import { AlertCircle, CheckCircle, AlertTriangle, Zap, Leaf, Droplet, Gauge, GlassWater, Coins } from 'lucide-react'
 import { RationOptimale } from '@/lib/ration-optimizer'
 import { DairyCowNeeds, BeefBullNeeds, SheepNeeds } from '@/lib/inra-calculations'
 
@@ -26,13 +25,31 @@ function getCoverageIcon(percentage: number) {
   return <AlertCircle className="h-4 w-4" />
 }
 
+const STATUT_STYLES: Record<string, { label: string; classes: string; icon: React.ReactNode }> = {
+  vert: { label: 'Besoins couverts', classes: 'bg-green-50 text-green-700 border-green-200', icon: <CheckCircle className="h-5 w-5" /> },
+  orange: { label: 'Besoins partiellement couverts', classes: 'bg-orange-50 text-orange-700 border-orange-200', icon: <AlertTriangle className="h-5 w-5" /> },
+  rouge: { label: 'Besoins non couverts', classes: 'bg-red-50 text-red-700 border-red-200', icon: <AlertCircle className="h-5 w-5" /> }
+}
+
 export function NutritionSummary({ ration, besoins, animalType }: NutritionSummaryProps) {
   const besoinsUFL = 'uflTotal' in besoins ? besoins.uflTotal : ('ufvTotal' in besoins ? besoins.ufvTotal : 0)
   const besoinsPDI = besoins.pdiTotal
-  const besoinMS = 'msRecommandee' in besoins ? besoins.msRecommandee : ((besoins.pv * 2.2) / 100)
+  const besoinMS = besoins.capaciteIngestion
+  const statut = STATUT_STYLES[ration.statut] ?? STATUT_STYLES.rouge
 
   return (
     <div className="space-y-6">
+      {/* Indicateur global de couverture */}
+      <div className={`flex items-center gap-3 rounded-lg border p-4 ${statut.classes}`}>
+        {statut.icon}
+        <div>
+          <div className="font-semibold">{statut.label}</div>
+          <div className="text-xs opacity-75">
+            Énergie {ration.couvertureUFL.toFixed(0)}% · Protéines {ration.couverturePDI.toFixed(0)}% · MS {ration.couvertureMS.toFixed(0)}%
+          </div>
+        </div>
+      </div>
+
       {/* Alertes */}
       {ration.alertes.length > 0 && (
         <Card className="border-orange-200 bg-orange-50/50">
@@ -137,7 +154,7 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
                 <span className="font-bold">{besoinMS.toFixed(1)}</span>
               </div>
             </div>
-            
+
             <div className={`p-3 rounded-lg ${getCoverageColor(ration.couvertureMS)}`}>
               <div className="flex items-center gap-2">
                 {getCoverageIcon(ration.couvertureMS)}
@@ -149,7 +166,71 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
             </div>
           </CardContent>
         </Card>
+
+        {/* Capacité d'ingestion */}
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <Gauge className="h-5 w-5 text-purple-600" />
+              <CardTitle className="text-base">Capacité d'ingestion</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div>
+              <div className="flex justify-between text-sm mb-1">
+                <span className="text-gray-600">CI théorique (kg MS)</span>
+                <span className="font-bold">{besoins.capaciteIngestion.toFixed(1)}</span>
+              </div>
+              <div className="flex justify-between text-sm mb-1">
+                <span className="text-gray-600">MS de la ration (kg)</span>
+                <span className="font-bold">{ration.totalMS.toFixed(1)}</span>
+              </div>
+            </div>
+            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className={`h-full ${ration.totalMS > besoins.capaciteIngestion ? 'bg-red-500' : 'bg-purple-500'}`}
+                style={{ width: `${Math.min(100, (ration.totalMS / besoins.capaciteIngestion) * 100)}%` }}
+              />
+            </div>
+            {ration.totalMS > besoins.capaciteIngestion && (
+              <p className="text-xs text-red-600">⚠️ Capacité d'ingestion dépassée</p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Eau recommandée */}
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <GlassWater className="h-5 w-5 text-cyan-600" />
+              <CardTitle className="text-base">Eau recommandée</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-gray-600">Besoin journalier</span>
+              <span className="font-bold">{besoins.eauRecommandee.toFixed(0)} L/jour</span>
+            </div>
+            <p className="text-xs text-gray-400">Eau propre disponible à volonté, en fonction de la température ambiante.</p>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Coût de la ration */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <Coins className="h-5 w-5 text-amber-600" />
+            <CardTitle className="text-base">Coût de la ration</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">Coût total estimé</span>
+            <span className="font-bold text-lg">{ration.totalCout.toFixed(2)} TND/jour</span>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Minéraux */}
       <Card>
@@ -218,45 +299,6 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
         </CardContent>
       </Card>
 
-      {/* Tableau détaillé */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Détail des aliments proposés</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-2 px-2 font-semibold">Aliment</th>
-                  <th className="text-right py-2 px-2 font-semibold">Brute (kg)</th>
-                  <th className="text-right py-2 px-2 font-semibold">MS (kg)</th>
-                  <th className="text-right py-2 px-2 font-semibold">UFL/V</th>
-                  <th className="text-right py-2 px-2 font-semibold">PDI (g)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ration.aliments.map((item, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-2 px-2">{item.aliment.nom}</td>
-                    <td className="text-right py-2 px-2">{item.quantiteBrute.toFixed(1)}</td>
-                    <td className="text-right py-2 px-2">{item.quantiteMS.toFixed(1)}</td>
-                    <td className="text-right py-2 px-2">{item.apportUFL.toFixed(2)}</td>
-                    <td className="text-right py-2 px-2">{item.apportPDI.toFixed(0)}</td>
-                  </tr>
-                ))}
-                <tr className="font-bold border-t-2 border-gray-300">
-                  <td className="py-2 px-2">TOTAL</td>
-                  <td className="text-right py-2 px-2">{ration.aliments.reduce((s, i) => s + i.quantiteBrute, 0).toFixed(1)}</td>
-                  <td className="text-right py-2 px-2">{ration.totalMS.toFixed(1)}</td>
-                  <td className="text-right py-2 px-2">{ration.totalUFL.toFixed(2)}</td>
-                  <td className="text-right py-2 px-2">{ration.totalPDI.toFixed(0)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }

@@ -77,6 +77,7 @@ async function main() {
       pdie_per_kg_ms: 25,
       pdin_per_kg_ms: 30,
       ndf_per_kg_ms: 75.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -89,6 +90,7 @@ async function main() {
       pdie_per_kg_ms: 22,
       pdin_per_kg_ms: 28,
       ndf_per_kg_ms: 78.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -101,6 +103,7 @@ async function main() {
       pdie_per_kg_ms: 95,
       pdin_per_kg_ms: 110,
       ndf_per_kg_ms: 45.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -113,6 +116,7 @@ async function main() {
       pdie_per_kg_ms: 65,
       pdin_per_kg_ms: 75,
       ndf_per_kg_ms: 58.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -125,6 +129,7 @@ async function main() {
       pdie_per_kg_ms: 68,
       pdin_per_kg_ms: 75,
       ndf_per_kg_ms: 42.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -137,6 +142,7 @@ async function main() {
       pdie_per_kg_ms: 78,
       pdin_per_kg_ms: 85,
       ndf_per_kg_ms: 18.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -149,6 +155,7 @@ async function main() {
       pdie_per_kg_ms: 65,
       pdin_per_kg_ms: 70,
       ndf_per_kg_ms: 12.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -161,6 +168,7 @@ async function main() {
       pdie_per_kg_ms: 65,
       pdin_per_kg_ms: 75,
       ndf_per_kg_ms: 20.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -173,6 +181,7 @@ async function main() {
       pdie_per_kg_ms: 110,
       pdin_per_kg_ms: 125,
       ndf_per_kg_ms: 42.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -185,6 +194,7 @@ async function main() {
       pdie_per_kg_ms: 320,
       pdin_per_kg_ms: 350,
       ndf_per_kg_ms: 15.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -197,6 +207,7 @@ async function main() {
       pdie_per_kg_ms: 250,
       pdin_per_kg_ms: 280,
       ndf_per_kg_ms: 28.0,
+      biologique: true,
       isPublic: true
     },
     
@@ -211,6 +222,7 @@ async function main() {
       pdie_per_kg_ms: 105,
       pdin_per_kg_ms: 120,
       ndf_per_kg_ms: 40.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -223,6 +235,7 @@ async function main() {
       pdie_per_kg_ms: 95,
       pdin_per_kg_ms: 110,
       ndf_per_kg_ms: 38.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -235,6 +248,7 @@ async function main() {
       pdie_per_kg_ms: 85,
       pdin_per_kg_ms: 95,
       ndf_per_kg_ms: 45.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -247,6 +261,7 @@ async function main() {
       pdie_per_kg_ms: 70,
       pdin_per_kg_ms: 80,
       ndf_per_kg_ms: 50.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -259,6 +274,7 @@ async function main() {
       pdie_per_kg_ms: 55,
       pdin_per_kg_ms: 65,
       ndf_per_kg_ms: 55.0,
+      biologique: true,
       isPublic: true
     },
 
@@ -273,6 +289,7 @@ async function main() {
       pdie_per_kg_ms: 58,
       pdin_per_kg_ms: 65,
       ndf_per_kg_ms: 22.0,
+      biologique: true,
       isPublic: true
     },
     {
@@ -285,6 +302,7 @@ async function main() {
       pdie_per_kg_ms: 60,
       pdin_per_kg_ms: 70,
       ndf_per_kg_ms: 18.0,
+      biologique: true,
       isPublic: true
     },
     
@@ -299,6 +317,7 @@ async function main() {
       pdie_per_kg_ms: 0,
       pdin_per_kg_ms: 2800,
       ndf_per_kg_ms: 0.0,
+      biologique: false,
       isPublic: true
     },
     {
@@ -311,6 +330,7 @@ async function main() {
       pdie_per_kg_ms: 0,
       pdin_per_kg_ms: 0,
       ndf_per_kg_ms: 0.0,
+      biologique: false,
       isPublic: true
     },
 
@@ -325,6 +345,7 @@ async function main() {
       pdie_per_kg_ms: 0,
       pdin_per_kg_ms: 0,
       ndf_per_kg_ms: 0.0,
+      biologique: false,
       isPublic: true
     },
   ]
