@@ -188,11 +188,11 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
             </div>
             <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className={`h-full ${ration.totalMS > besoins.capaciteIngestion ? 'bg-red-500' : 'bg-purple-500'}`}
+                className={`h-full ${ration.totalMS > besoins.capaciteIngestion * 1.05 ? 'bg-red-500' : 'bg-purple-500'}`}
                 style={{ width: `${Math.min(100, (ration.totalMS / besoins.capaciteIngestion) * 100)}%` }}
               />
             </div>
-            {ration.totalMS > besoins.capaciteIngestion && (
+            {ration.totalMS > besoins.capaciteIngestion * 1.05 && (
               <p className="text-xs text-red-600">⚠️ Capacité d'ingestion dépassée</p>
             )}
           </CardContent>
