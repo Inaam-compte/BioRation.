@@ -89,8 +89,15 @@ function NavItem({ item, pathname, onClose, isDesktop }: {
   onClose?: () => void
   isDesktop?: boolean
 }) {
-  const isActive = pathname === item.href || item.children?.some(c => pathname === c.href)
+  const matchesPath = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
+  const isActive = matchesPath(item.href) || item.children?.some(c => matchesPath(c.href))
   const hasChildren = !!item.children?.length
+
+  // Quand plusieurs enfants matchent (ex: /aliments et /aliments/limits), ne surligner
+  // que le plus spécifique (le href le plus long) pour éviter un double surlignage.
+  const activeChildHref = item.children
+    ?.filter(c => matchesPath(c.href))
+    .sort((a, b) => b.href.length - a.href.length)[0]?.href
   const [expanded, setExpanded] = useState(isActive || false)
 
   return (
@@ -133,7 +140,7 @@ function NavItem({ item, pathname, onClose, isDesktop }: {
                 href={child.href}
                 onClick={onClose}
                 className={`block rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
-                  pathname === child.href
+                  child.href === activeChildHref
                     ? 'text-green-600 bg-green-50'
                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                 }`}

@@ -52,12 +52,12 @@ export default async function RationingPage() {
                 Nouvelle ration
               </CardTitle>
               <CardDescription>
-                Commencez par définir les paramètres de votre animal pour calculer ses besoins
+                Choisissez la catégorie de votre animal avant d’accéder au module de calcul adapté.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild className="bg-green-600 hover:bg-green-700">
-                <Link href="/rationing/choix-espece">
+                <Link href="/rationing/new">
                   <Plus className="h-4 w-4 mr-2" />
                   Commencer une nouvelle ration
                 </Link>
@@ -132,7 +132,7 @@ export default async function RationingPage() {
                   
                   <div className="pt-2">
                     <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                      <Link href="/rationing/choix-espece">
+                      <Link href="/rationing/new">
                         <Calculator className="h-4 w-4 mr-2" />
                         Calculer les besoins
                       </Link>
