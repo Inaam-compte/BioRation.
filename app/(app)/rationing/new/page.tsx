@@ -31,8 +31,16 @@ const categories = [
   }
 ]
 
+// Exclus du module de rationnement : intrants synthétiques non pertinents pour
+// la formulation de ration en mode biologique (l'urée est d'ailleurs interdite
+// en alimentation biologique des ruminants).
+const ALIMENTS_EXCLUS = ['Urée', 'Bicarbonate de sodium']
+
 export default async function NewRationPage() {
   const aliments = await prisma.aliment.findMany({
+    where: {
+      name_fr: { notIn: ALIMENTS_EXCLUS }
+    },
     orderBy: [
       { category_fr: 'asc' },
       { name_fr: 'asc' }
