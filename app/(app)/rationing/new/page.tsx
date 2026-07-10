@@ -39,11 +39,27 @@ export default async function NewRationPage() {
     ]
   })
 
-  const alimentsData = aliments.map((aliment) => ({
+  const alimentsData = aliments.map((aliment) => {
+    const ndf = aliment.ndf_per_kg_ms ?? aliment.ndf_percentage_brut ?? 0
+
+    // La catégorie en base ("Matières premières", "Sous-produits", ...) mélange
+    // volontairement fourrages et concentrés (voir Gestion des aliments) — elle ne
+    // suffit donc pas à déterminer le rôle nutritionnel réel de l'aliment dans la
+    // ration. On se base sur la teneur en NDF (fibres) : NDF >= 40% = fourrage,
+    // sinon concentré. "Verdure" reste identifiée par sa catégorie (fourrage vert).
+    let categorie: 'fourrage' | 'verdure' | 'concentre'
+    if (aliment.category_fr.toLowerCase().includes('verdure')) {
+      categorie = 'verdure'
+    } else if (ndf >= 40) {
+      categorie = 'fourrage'
+    } else {
+      categorie = 'concentre'
+    }
+
+    return {
     id: aliment.id,
     nom: aliment.name_fr,
-    categorie: (aliment.category_fr.toLowerCase().includes('fourrage') ? 'fourrage' :
-      aliment.category_fr.toLowerCase().includes('verdure') ? 'verdure' : 'concentre') as 'fourrage' | 'verdure' | 'concentre',
+    categorie,
     ms_pourcentage: aliment.ms_percentage,
     ufl_par_kg_ms: aliment.ufl_per_kg_ms ?? aliment.ufl_per_kg_brut ?? 0,
     pdie_par_kg_ms: aliment.pdie_per_kg_ms ?? aliment.pdie_g_per_kg_brut ?? 0,
@@ -53,7 +69,8 @@ export default async function NewRationPage() {
     calcium_par_kg_ms: aliment.ca_g_per_kg_brut ?? 0,
     phosphore_par_kg_ms: aliment.p_g_per_kg_brut ?? 0,
     biologique: aliment.biologique ?? false
-  }))
+    }
+  })
 
   return <NewRationINRAClient categories={categories} aliments={alimentsData} />
 }
