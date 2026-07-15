@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CheckCircle, AlertTriangle, PlusCircle } from 'lucide-react'
+import { CheckCircle, AlertTriangle, PlusCircle, Zap, Leaf, Gauge, GlassWater } from 'lucide-react'
 import { FeedSelector } from '@/components/rationing/FeedSelector'
 import { NutritionCharts } from '@/components/rationing/NutritionCharts'
 import { NutritionSummary } from '@/components/rationing/NutritionSummary'
@@ -66,10 +66,50 @@ export function RationOptimizer({ animalType, besoins, aliments }: RationOptimiz
       </div>
 
       <div className="lg:col-span-2 space-y-4">
+        {/* Besoins calculés pour l'animal : toujours visibles dès que le calcul a été lancé,
+            indépendamment des aliments saisis. */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">Besoins calculés pour cet animal</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="rounded-lg border border-gray-200 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
+                  <Zap className="h-3.5 w-3.5 text-yellow-600" /> Énergie
+                </div>
+                <div className="text-lg font-bold">{besoinEnergie.toFixed(2)} <span className="text-xs font-normal text-gray-500">UFL/UFV</span></div>
+              </div>
+              <div className="rounded-lg border border-gray-200 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
+                  <Leaf className="h-3.5 w-3.5 text-green-600" /> Protéines
+                </div>
+                <div className="text-lg font-bold">{besoinPDI.toFixed(0)} <span className="text-xs font-normal text-gray-500">g PDI</span></div>
+              </div>
+              <div className="rounded-lg border border-gray-200 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
+                  <Gauge className="h-3.5 w-3.5 text-purple-600" /> Capacité d'ingestion
+                </div>
+                <div className="text-lg font-bold">{capaciteIngestion.toFixed(1)} <span className="text-xs font-normal text-gray-500">kg MS</span></div>
+              </div>
+              <div className="rounded-lg border border-gray-200 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
+                  <GlassWater className="h-3.5 w-3.5 text-cyan-600" /> Eau
+                </div>
+                <div className="text-lg font-bold">{besoins.eauRecommandee.toFixed(0)} <span className="text-xs font-normal text-gray-500">L/jour</span></div>
+              </div>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3 text-sm text-gray-600">
+              <div>Calcium: <span className="font-semibold text-gray-900">{besoins.calcium.toFixed(0)} g/jour</span></div>
+              <div>Phosphore: <span className="font-semibold text-gray-900">{besoins.phosphore.toFixed(0)} g/jour</span></div>
+            </div>
+          </CardContent>
+        </Card>
+
         {!rationActuelle && (
           <Card className="border-dashed border-2 border-gray-300 bg-gray-50/50">
             <CardContent className="py-10 text-center text-gray-500">
-              Cochez les aliments que vous avez et entrez les quantités en kg pour vérifier si votre ration couvre les besoins de l'animal.
+              Cochez les aliments que vous avez et entrez les quantités en kg pour vérifier si votre ration couvre ces besoins.
             </CardContent>
           </Card>
         )}
