@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { AlimentDispo } from '@/lib/ration-optimizer'
 
@@ -11,6 +11,20 @@ interface Props {
 }
 
 export function FeedSelector({ aliments, quantites, onQuantiteChange }: Props) {
+  // Coché indépendamment de la quantité : cocher un aliment affiche 0 kg par défaut
+  // (à l'utilisateur de saisir la vraie quantité), sans se décocher automatiquement.
+  const [cochés, setCochés] = useState<Set<string>>(new Set())
+
+  const toggle = (id: string, checked: boolean) => {
+    setCochés(prev => {
+      const next = new Set(prev)
+      if (checked) next.add(id)
+      else next.delete(id)
+      return next
+    })
+    onQuantiteChange(id, checked ? (quantites[id] || 0) : 0)
+  }
+
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-semibold">Mes aliments disponibles</h3>
@@ -19,13 +33,13 @@ export function FeedSelector({ aliments, quantites, onQuantiteChange }: Props) {
       </p>
       <div className="space-y-2">
         {aliments.map((a) => {
-          const active = (quantites[a.id] ?? 0) > 0
+          const active = cochés.has(a.id)
           return (
             <div key={a.id} className="flex items-center gap-2 border p-2 rounded">
               <input
                 type="checkbox"
                 checked={active}
-                onChange={(e) => onQuantiteChange(a.id, e.target.checked ? (quantites[a.id] || 1) : 0)}
+                onChange={(e) => toggle(a.id, e.target.checked)}
               />
               <div className="flex-1 text-sm">
                 <div className="font-medium flex items-center gap-2">
@@ -40,7 +54,7 @@ export function FeedSelector({ aliments, quantites, onQuantiteChange }: Props) {
                 step={0.1}
                 disabled={!active}
                 placeholder="kg"
-                value={quantites[a.id] ?? ''}
+                value={active ? (quantites[a.id] ?? 0) : ''}
                 onChange={(e) => onQuantiteChange(a.id, parseFloat(e.target.value) || 0)}
                 className="w-20 h-8 text-xs"
               />
