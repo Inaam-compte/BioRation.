@@ -31,7 +31,7 @@ export function NutritionCharts({ ration }: Props) {
   const barColor = STATUT_BAR[ration.statut] ?? 'bg-gray-400'
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div className="rounded-lg border p-3 space-y-2">
         <div className="text-sm text-gray-600">Énergie (UFL/UFV)</div>
         <div className="text-xl font-bold">{ration.totalUFL.toFixed(2)}</div>
@@ -48,12 +48,6 @@ export function NutritionCharts({ ration }: Props) {
         <div className="text-sm text-gray-600">Matière sèche (kg)</div>
         <div className="text-xl font-bold">{ration.totalMS.toFixed(1)}</div>
         <Bar label="Fourrages" value={ration.pourcentsForrage} className="bg-emerald-500" />
-      </div>
-
-      <div className="rounded-lg border p-3 space-y-2">
-        <div className="text-sm text-gray-600">Coût (TND/jour)</div>
-        <div className="text-xl font-bold">{ration.totalCout.toFixed(2)}</div>
-        <div className="text-xs text-gray-400 capitalize">Statut: {ration.statut}</div>
       </div>
     </div>
   )

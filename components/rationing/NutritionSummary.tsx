@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { AlertCircle, CheckCircle, AlertTriangle, Zap, Leaf, Droplet, Gauge, GlassWater, Coins } from 'lucide-react'
+import { AlertCircle, CheckCircle, AlertTriangle, Zap, Leaf, Droplet, Gauge, GlassWater } from 'lucide-react'
 import { RationOptimale } from '@/lib/ration-optimizer'
 import { DairyCowNeeds, BeefBullNeeds, SheepNeeds } from '@/lib/inra-calculations'
 
@@ -215,22 +215,6 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
           </CardContent>
         </Card>
       </div>
-
-      {/* Coût de la ration */}
-      <Card>
-        <CardHeader className="pb-3">
-          <div className="flex items-center gap-2">
-            <Coins className="h-5 w-5 text-amber-600" />
-            <CardTitle className="text-base">Coût de la ration</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Coût total estimé</span>
-            <span className="font-bold text-lg">{ration.totalCout.toFixed(2)} TND/jour</span>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Minéraux */}
       <Card>
