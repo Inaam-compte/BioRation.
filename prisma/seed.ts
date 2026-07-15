@@ -172,6 +172,22 @@ async function main() {
       isPublic: true
     },
     {
+      // Concentré commercial générique (valeurs standards de table INRA pour un
+      // concentré mixte céréales/tourteaux) — biologique par défaut car destiné
+      // au module de rationnement en mode biologique.
+      name_fr: "Concentré",
+      name_ar: "علف مركز",
+      category_fr: "Matières premières",
+      category_ar: "مواد أولية",
+      ms_percentage: 88.0,
+      ufl_per_kg_ms: 1.00,
+      pdie_per_kg_ms: 100,
+      pdin_per_kg_ms: 110,
+      ndf_per_kg_ms: 15.0,
+      biologique: true,
+      isPublic: true
+    },
+    {
       name_fr: "Son de blé",
       name_ar: "نخالة القمح",
       category_fr: "Sous-produits",

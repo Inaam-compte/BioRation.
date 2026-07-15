@@ -37,10 +37,11 @@ const categories = [
   }
 ]
 
-// Exclus du module de rationnement : intrants synthétiques non pertinents pour
-// la formulation de ration en mode biologique (l'urée est d'ailleurs interdite
-// en alimentation biologique des ruminants).
-const ALIMENTS_EXCLUS = ['Urée', 'Bicarbonate de sodium']
+// Exclus du module de rationnement.
+const ALIMENTS_EXCLUS = [
+  'Urée', 'Bicarbonate de sodium', // intrants synthétiques interdits/non pertinents en mode biologique
+  'Ray-grass anglais'
+]
 
 export default async function NewRationPage() {
   const aliments = await prisma.aliment.findMany({
