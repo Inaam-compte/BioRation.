@@ -2,6 +2,9 @@ import { prisma } from '@/lib/prisma'
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import AnalyticsClient from '@/components/analytics/AnalyticsClient'
 
+// Ne jamais pré-rendre statiquement : les analyses doivent refléter les données actuelles.
+export const dynamic = 'force-dynamic'
+
 export default async function AnalyticsPage() {
   const userId = DEFAULT_USER_ID
 

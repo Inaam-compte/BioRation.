@@ -6,6 +6,9 @@ import Link from 'next/link'
 import { Plus, Calculator, ArrowLeft } from 'lucide-react'
 import { AddAnimalDialog } from '@/components/add-animal-dialog'
 
+// Ne jamais pré-rendre statiquement : la liste des animaux enregistrés doit être à jour.
+export const dynamic = 'force-dynamic'
+
 export default async function RationingPage() {
   const userId = DEFAULT_USER_ID
 

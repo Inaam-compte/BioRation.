@@ -3,6 +3,10 @@ import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 
+// Page basée sur des données live (animaux, aliments, conseils) : ne jamais la
+// pré-rendre statiquement au build, sinon elle resterait figée jusqu'au prochain déploiement.
+export const dynamic = 'force-dynamic'
+
 export default async function Dashboard() {
   const userId = DEFAULT_USER_ID
 

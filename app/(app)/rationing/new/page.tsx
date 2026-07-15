@@ -1,6 +1,12 @@
 import { prisma } from '@/lib/prisma'
 import { NewRationINRAClient } from '@/components/rationing/NewRationINRAClient'
 
+// Cette page interroge la liste des aliments à chaque visite : elle ne doit jamais
+// être pré-rendue statiquement au build, sinon les aliments ajoutés depuis via
+// "Gestion des aliments" n'apparaîtraient plus dans le module de rationnement
+// avant le prochain déploiement.
+export const dynamic = 'force-dynamic'
+
 const categories = [
   {
     title: 'Vaches laitières',

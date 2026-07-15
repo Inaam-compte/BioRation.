@@ -2,6 +2,9 @@ import { prisma } from '@/lib/prisma'
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import AnimalsClient from '@/components/animals/AnimalsClient'
 
+// Ne jamais pré-rendre statiquement : la liste des animaux doit toujours être à jour.
+export const dynamic = 'force-dynamic'
+
 export default async function AnimalsPage({
   searchParams,
 }: {

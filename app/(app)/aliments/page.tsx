@@ -2,6 +2,10 @@ import { prisma } from '@/lib/prisma'
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import AlimentsClient from '@/components/aliments/AlimentsClient'
 
+// Ne jamais pré-rendre statiquement : les aliments ajoutés/modifiés doivent
+// apparaître immédiatement ici, sans attendre le prochain déploiement.
+export const dynamic = 'force-dynamic'
+
 const alimentListSelect = {
   id: true,
   name_fr: true,

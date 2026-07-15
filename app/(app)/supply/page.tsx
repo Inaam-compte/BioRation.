@@ -5,6 +5,9 @@ import { prisma } from '@/lib/prisma'
 import { DEFAULT_USER_ID } from '@/lib/auth-utils'
 import SupplyClient from '@/components/supply/SupplyClient'
 
+// Ne jamais pré-rendre statiquement : stocks/fournisseurs changent en continu.
+export const dynamic = 'force-dynamic'
+
 export default async function SupplyPage() {
   const userId = DEFAULT_USER_ID
 
