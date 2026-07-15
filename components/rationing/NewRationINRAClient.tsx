@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Milk, Beef, PawPrint, ChevronDown, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -41,14 +41,16 @@ interface NewRationINRAClientProps {
 
 type StageType = 'selection' | 'calcul' | 'resultats'
 
+// lucide-react n'a pas d'icônes vache/veau/mouton dédiées : on utilise des emoji
+// pour une représentation fidèle des trois espèces.
 function getIcon(iconType: 'milk' | 'beef' | 'paw') {
   switch (iconType) {
     case 'milk':
-      return <Milk className="h-6 w-6" />
+      return <span className="text-2xl leading-none" role="img" aria-label="Vache">🐄</span>
     case 'beef':
-      return <Beef className="h-6 w-6" />
+      return <span className="text-2xl leading-none" role="img" aria-label="Veau">🐂</span>
     case 'paw':
-      return <PawPrint className="h-6 w-6" />
+      return <span className="text-2xl leading-none" role="img" aria-label="Mouton">🐑</span>
   }
 }
 
