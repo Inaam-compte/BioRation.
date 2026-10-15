@@ -163,6 +163,31 @@ export function NutritionSummary({ ration, besoins, animalType }: NutritionSumma
                   <div className="text-lg font-bold">{ration.couvertureMS.toFixed(0)}%</div>
                 </div>
               </div>
+              {/* % fourrage / concentré sur la même ligne, couleurs selon équilibre */}
+              <div className="mt-2 flex items-center gap-2 text-xs font-semibold">
+                <span
+                  className={`flex-1 rounded-md px-2 py-1 text-center ${
+                    ration.statut === 'vert'
+                      ? 'bg-green-600 text-white'
+                      : ration.statut === 'orange'
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-red-600 text-white'
+                  }`}
+                >
+                  🌾 Four : {ration.pourcentsForrage.toFixed(0)}%
+                </span>
+                <span
+                  className={`flex-1 rounded-md px-2 py-1 text-center ${
+                    ration.statut === 'vert'
+                      ? 'bg-amber-500 text-white'
+                      : ration.statut === 'orange'
+                        ? 'bg-orange-300 text-orange-950'
+                        : 'bg-red-300 text-red-950'
+                  }`}
+                >
+                  🌽 Conc : {(100 - ration.pourcentsForrage).toFixed(0)}%
+                </span>
+              </div>
             </div>
           </CardContent>
         </Card>
