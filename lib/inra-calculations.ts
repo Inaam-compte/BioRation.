@@ -8,7 +8,7 @@ export interface DairyCowNeeds {
   pv: number // Poids vif kg
   productionLait: number // kg/jour
   tauxButyreux: number // %
-  stadeGestation: number // mois (0=non gestante, 7,8,9)
+  stadeGestation: number // mois (0=non gestante, 6=<7 mois, 7,8,9)
   primipare: boolean
   stageLactation: 'debut' | 'milieu' | 'fin'
   
@@ -79,9 +79,11 @@ export function calculateDairyCowNeeds(input: Omit<DairyCowNeeds, 'uflEntretien'
   const correctionTB = 0.4 + (0.006 * tauxButyreux)
   const uflProduction = correctionTB * productionLait
 
-  // UFL GESTATION
+  // UFL GESTATION (INRA 2018 : besoins significatifs dès 7e mois, faibles avant)
   let uflGestation = 0
-  if (stadeGestation === 7) {
+  if (stadeGestation > 0 && stadeGestation < 7) {
+    uflGestation = 0.3
+  } else if (stadeGestation === 7) {
     uflGestation = 0.8
   } else if (stadeGestation === 8) {
     uflGestation = 1.5

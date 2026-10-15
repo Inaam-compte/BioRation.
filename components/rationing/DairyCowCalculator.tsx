@@ -70,6 +70,7 @@ export function DairyCowCalculator({ onCalculated }: Props) {
             <Label>Stade de gestation (mois)</Label>
             <select className="w-full rounded-md border p-2" value={stadeGest} onChange={(e) => setStadeGest(Number(e.target.value))}>
               <option value={0}>Non gestante</option>
+              <option value={6}>Inférieur à 7 mois de gestation</option>
               <option value={7}>7 mois</option>
               <option value={8}>8 mois</option>
               <option value={9}>9 mois</option>
